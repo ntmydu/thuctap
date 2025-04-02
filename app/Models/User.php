@@ -21,7 +21,6 @@ class User extends Authenticatable
     // Tắt tính năng auto-increment
     protected  $table = 'users';
     protected $fillable = [
-
         'name',
         'email',
         'role',
