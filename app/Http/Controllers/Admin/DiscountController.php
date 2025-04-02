@@ -15,7 +15,7 @@ class DiscountController extends Controller
     public function store(Request $request)
     {
         $discounts = Discount::create($request->all());
-        return redirect()->back()->with('success', 'Thêm mã thành công.');
+        return redirect()->back()->with('success', 'Thêm mã thành công. ');
     }
     public function index()
     {
