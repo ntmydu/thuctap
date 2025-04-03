@@ -81,41 +81,91 @@
             </div>
 
         </div>
-        <!-- <div style="width: 100%" class="row">
-            @if(Auth::check())
-            <form style="width: 100%" id="reviewForm">
+        <div style="width: 100%" class="row">
+
+
+            <input type="hidden" id="product_id" value="{{ $product->id }}">
+            <div style="align-items: center; " class="form-group">
+                <h2 style="justify-content: center;" class="form-label">Đánh Giá Sản Phẩm</h2>
+                <ul class="list-inline">
+                    @for($count=1; $count<=5; $count++) @php $color=($count <=$rating) ? '#ffcc00' : '#ccc' ; @endphp
+                        <span class="star-product" style="cursor: pointer; color: {{ $color }}; font-size:30px;"
+                        data-index="{{$count}}" data-product_id="{{$product->id}}" data-rating="{{ $rating }}">
+                        &#9733
+                        </span>
+                        @endfor
+                </ul>
+            </div>
+        </div>
+        <form action="" style="width: 100%" id="reviewForm">
+            <div class="form-group">
                 <input type="hidden" id="product_id" value="{{ $product->id }}">
-                <div style="align-items: center; " class="form-group">
-                    <h2 style="justify-content: center;" class="form-label">Đánh Giá Sản Phẩm</h2>
-                    <ul class="list-inline">
-                        @for($count=1; $count<=5; $count++) <li class="rating"
-                            style="cursor:pointer; color: #ccc; font-size: 30px;">&#9733</li>
-                            @endfor
-                    </ul>
-                    <input type="hidden" id="selected_rating" name="rating" required>
-                </div>
-                <div class="">
-                    <h3 for="comment" class="form-label">Nhận Xét</h3>
-                    <textarea style="height: 200px; font-size:medium;" class="form-control" id="comment" rows="3"
-                        placeholder="Nhập nhận xét của bạn về sản phẩm..."></textarea>
-                </div>
-                <button style="margin-left: 0;" type="submit" class="btn btn-dark">Gửi Đánh Giá</button>
+                <h3 for="comment" class="form-label">Nhận Xét của bạn</h3>
 
-            </form>
-            @else
-            <span style="font-size: 1.5rem;">Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để đánh giá sản
-                phẩm.</span>
-            @endif
+                <input type="hidden" id="selected_rating" name="rating" required>
+                <ul class="list-inline">
+                    @for($count=1; $count<=5; $count++) @php $color=($count <=$rating) ? '#ffcc00' : '#ccc' ; @endphp
+                        <span id="star-{{$count}}" class="star"
+                        style="cursor: pointer; color: {{ $color }}; font-size:30px;" data-index="{{$count}}"
+                        data-product_id="{{$product->id}}" data-rating="{{ $rating }}" onclick="setRating(this)"
+                        onmouseover="hoverRating({{ $count }})" onmouseout="resetRating()">
+                        &#9733
+                        </span>
+                        @endfor
+                </ul>
 
-        </div> -->
+
+
+                <textarea style="height: 200px; font-size:medium;" name="comment" class="form-control" id="comment"
+                    rows="3" placeholder="Nhập nhận xét của bạn về sản phẩm..."></textarea>
+            </div>
+            <button style="margin-left: 0;" type="submit" class="btn btn-dark">Gửi Đánh Giá</button>
+
+        </form>
+
+        <span style="font-size: 1.5rem;">Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để đánh giá sản
+            phẩm.</span>
+        <div>
+            <h2>Danh sách đánh giá</h2>
+        </div>
+
+    </div>
 
     </div>
 
 
 </section>
 @endsection
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
+    function setRating(element) {
+        // Lấy giá trị từ data-index của sao được nhấp
+        const rating = element.getAttribute('data-index');
+        document.getElementById('selected_rating').value = rating; // Cập nhật giá trị rating đã chọn
+        updateStarColors(rating); // Cập nhật màu sắc các sao
+    }
+
+    function hoverRating(element) {
+        // Lấy giá trị từ data-index khi hover
+        const rating = element.getAttribute('data-index');
+        updateStarColors(rating); // Cập nhật màu sắc các sao theo rating hover
+    }
+
+    function resetRating() {
+        // Cập nhật lại màu sắc sao dựa trên rating đã chọn
+        const selectedRating = document.getElementById('selected_rating').value || 0;
+        updateStarColors(selectedRating);
+    }
+
+    function updateStarColors(rating) {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach((star, index) => {
+            star.style.color = index < rating ? '#ffcc00' : '#ccc'; // Màu vàng cho sao đã chọn
+        });
+    }
+</script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </script>
 $(document).ready(function() {
     const productId = $('#product_id').val();
 
