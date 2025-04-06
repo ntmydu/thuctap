@@ -7,8 +7,7 @@
             <div class="col-6">
                 <ul>
                     @foreach($images as $index => $image)
-                    <!-- Giả sử $images là mảng các hình ảnh -->
-                    <!-- Kiểm tra ID sản phẩm -->
+
                     @if($image->product_id === $product->id && $index === 0)
                     <li>
                         <img src="{{ asset($image->image_name)}}" alt="{{ $product->name }}" style="width: 100%"
@@ -97,72 +96,108 @@
                 </ul>
             </div>
         </div>
-        <form action="" style="width: 100%" id="reviewForm">
+        <h2>Danh sách đánh giá</h2>
+        <div id="reviewContainer">
+            <ul class="list-unstyled">
+                @foreach($ratings as $index => $rating)
+                <li class="media" style="{{ $index >= 3 ? 'display: none;' : '' }}" id="rating-{{ $index }}">
+                    <div class="media-body line">
+                        <label class="text-muted">Người đánh giá:
+                            {{ $rating->user ? $rating->user->name : 'Người dùng không xác định' }}</label>
+                        <h5 class="mt-0 mb-1">Đánh giá: {{ $rating->rating }} sao</h5>
+                        <p>{{ $rating->comment }}</p>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @if($ratings->count() > 3)
+        <button id="toggleReviews" class="btn ">Xem thêm </button>
+        @endif
+        @auth
+        <form action="/review/{{$product->id}}" style="width: 100%" id="reviewForm">
+            @csrf
             <div class="form-group">
-                <input type="hidden" id="product_id" value="{{ $product->id }}">
-                <h3 for="comment" class="form-label">Nhận Xét của bạn</h3>
-
-                <input type="hidden" id="selected_rating" name="rating" required>
-                <ul class="list-inline">
-                    @for($count=1; $count<=5; $count++) @php $color=($count <=$rating) ? '#ffcc00' : '#ccc' ; @endphp
-                        <span id="star-{{$count}}" class="star"
-                        style="cursor: pointer; color: {{ $color }}; font-size:30px;" data-index="{{$count}}"
-                        data-product_id="{{$product->id}}" data-rating="{{ $rating }}" onclick="setRating(this)"
-                        onmouseover="hoverRating({{ $count }})" onmouseout="resetRating()">
-                        &#9733
-                        </span>
-                        @endfor
-                </ul>
-
-
-
-                <textarea style="height: 200px; font-size:medium;" name="comment" class="form-control" id="comment"
-                    rows="3" placeholder="Nhập nhận xét của bạn về sản phẩm..."></textarea>
+                <button style="margin-left: 0;" type="submit" class="btn btn-dark">Đánh Giá</button>
             </div>
-            <button style="margin-left: 0;" type="submit" class="btn btn-dark">Gửi Đánh Giá</button>
+
 
         </form>
-
-        <span style="font-size: 1.5rem;">Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để đánh giá sản
+        @else
+        <span style="font-size: 1.5rem;">Vui lòng <a href="{{ route('login') }}">Đăng nhập</a> để đánh giá sản
             phẩm.</span>
-        <div>
-            <h2>Danh sách đánh giá</h2>
-        </div>
+        @endauth
 
     </div>
 
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.getElementById('toggleReviews');
+        const reviews = document.querySelectorAll('#reviewContainer .media');
+        let isExpanded = false;
 
+        toggleButton.addEventListener('click', function() {
+            if (isExpanded) {
+                // Thu gọn lại
+                reviews.forEach((review, index) => {
+                    if (index > 2) {
+                        review.style.display = 'none'; // Ẩn các đánh giá ẩn
+                    }
+                });
+                this.textContent = 'Xem thêm'; // Đổi text thành "Xem thêm"
+            } else {
+                // Mở rộng
+                reviews.forEach(review => {
+                    review.style.display = 'block'; // Hiện tất cả các đánh giá
+                });
+                this.textContent = 'Thu gọn lại'; // Đổi text thành "Thu gọn lại"
+            }
+            isExpanded = !isExpanded; // Chuyển đổi trạng thái
+        });
+    });
+    </script>
 
 </section>
 @endsection
 
 <script>
-    function setRating(element) {
-        // Lấy giá trị từ data-index của sao được nhấp
-        const rating = element.getAttribute('data-index');
-        document.getElementById('selected_rating').value = rating; // Cập nhật giá trị rating đã chọn
-        updateStarColors(rating); // Cập nhật màu sắc các sao
-    }
+function setRating(element) {
+    // Lấy giá trị từ data-index của sao được nhấp
+    const rating = element.getAttribute('data-index');
+    document.getElementById('selected_rating').value = rating; // Cập nhật giá trị rating đã chọn
+    updateStarColors(rating); // Cập nhật màu sắc các sao
+}
 
-    function hoverRating(element) {
-        // Lấy giá trị từ data-index khi hover
-        const rating = element.getAttribute('data-index');
-        updateStarColors(rating); // Cập nhật màu sắc các sao theo rating hover
-    }
+function hoverRating(element) {
+    // Lấy giá trị từ data-index khi hover
+    const rating = element.getAttribute('data-index');
+    updateStarColors(rating); // Cập nhật màu sắc các sao theo rating hover
+}
 
-    function resetRating() {
-        // Cập nhật lại màu sắc sao dựa trên rating đã chọn
-        const selectedRating = document.getElementById('selected_rating').value || 0;
-        updateStarColors(selectedRating);
-    }
+function resetRating() {
+    // Cập nhật lại màu sắc sao dựa trên rating đã chọn
+    const selectedRating = document.getElementById('selected_rating').value || 0;
+    updateStarColors(selectedRating);
+}
 
-    function updateStarColors(rating) {
-        const stars = document.querySelectorAll('.star');
-        stars.forEach((star, index) => {
-            star.style.color = index < rating ? '#ffcc00' : '#ccc'; // Màu vàng cho sao đã chọn
-        });
-    }
+function updateStarColors(rating) {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        star.style.color = index < rating ? '#ffcc00' : '#ccc'; // Màu vàng cho sao đã chọn
+    });
+}
+</script>
+<script>
+document.getElementById('loadMore').addEventListener('click', function() {
+    const reviews = document.querySelectorAll('#reviewContainer .media');
+    reviews.forEach((review, index) => {
+        if (index >= 3) {
+            review.style.display = 'block'; // Hiện các đánh giá ẩn
+        }
+    });
+    this.style.display = 'none'; // Ẩn nút "Xem thêm" sau khi nhấn
+});
 </script>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </script>
@@ -212,28 +247,28 @@ $(document).ready(function() {
 });
 </script> -->
 <script>
-    const handleChangeImage = (urlImg) => {
-        document.getElementById('product-img').src = urlImg;
+const handleChangeImage = (urlImg) => {
+    document.getElementById('product-img').src = urlImg;
 
-        const thumbs = document.getElementsByClassName('product-img-thumb');
+    const thumbs = document.getElementsByClassName('product-img-thumb');
 
-        // Lặp qua tất cả thumbnail để thêm hoặc xóa class 'active'
-        for (let i = 0; i < thumbs.length; i++) {
-            if (thumbs[i].src === urlImg) {
-                thumbs[i].style.border = '1px solid'; // Thêm border cho thumbnail đã nhấn
-            } else {
-                thumbs[i].style.border = 'none'; // Xóa border cho thumbnail không phải là thumbnail đã nhấn
-            }
+    // Lặp qua tất cả thumbnail để thêm hoặc xóa class 'active'
+    for (let i = 0; i < thumbs.length; i++) {
+        if (thumbs[i].src === urlImg) {
+            thumbs[i].style.border = '1px solid'; // Thêm border cho thumbnail đã nhấn
+        } else {
+            thumbs[i].style.border = 'none'; // Xóa border cho thumbnail không phải là thumbnail đã nhấn
         }
     }
+}
 
-    window.onload = function() {
-        const thumbs = document.getElementsByClassName('product-img-thumb');
-        if (thumbs.length > 0) {
-            // Lấy nguồn của thumbnail đầu tiên
-            const firstThumb = thumbs[0].src;
-            handleChangeImage(firstThumb); // Đặt ảnh chính là thumbnail đầu tiên
-            thumbs[0].style.border = '1px solid'; // Thêm border cho thumbnail đầu tiên
-        }
+window.onload = function() {
+    const thumbs = document.getElementsByClassName('product-img-thumb');
+    if (thumbs.length > 0) {
+        // Lấy nguồn của thumbnail đầu tiên
+        const firstThumb = thumbs[0].src;
+        handleChangeImage(firstThumb); // Đặt ảnh chính là thumbnail đầu tiên
+        thumbs[0].style.border = '1px solid'; // Thêm border cho thumbnail đầu tiên
     }
+}
 </script>

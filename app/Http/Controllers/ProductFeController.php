@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Menu;
 use App\Models\Upload;
 use App\Models\Ratting;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class ProductFeController extends Controller
@@ -17,14 +18,16 @@ class ProductFeController extends Controller
         $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
 
         $images = Upload::where('product_id', $product->id)->get();
-        $rating = Ratting::where('product_id', $product->id)->avg('rating');
-        $rating = round($rating);
+        $ratings = Ratting::where('product_id', $product->id)->get();
+        $rat = Ratting::where('product_id', $product->id)->avg('rating');
+        $rating = round($rat);
 
         return view('fontend.product.detail', [
             'product' => $product,
             'menus' => $menus,
             'images' => $images,
-            'rating' => $rating
+            'rating' => $rating,
+            'ratings' => $ratings
         ]);
     }
     public function show($id)
@@ -40,9 +43,42 @@ class ProductFeController extends Controller
             'images' => $images
         ]);
     }
-    public function addRating(Request $request)
+    public function showReview($id)
     {
+        $product = Product::find($id);
+        $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
+        $rating = Ratting::where('product_id', $product->id)->avg('rating');
+        $rating = round($rating);
+
+        return view(
+            'fontend.product.review',
+            [
+                'product' => $product,
+                'menus' => $menus,
+                'rating' => $rating
+            ]
+        );
+    }
+    public function addReview(Request $request)
+    {
+
+        $request->validate([
+            'comment' => 'nullable|string|max:500',
+        ]);
+        $randomId = Str::random(10);
         $data = $request->all();
-        $rating = Ratting::create([]);
+        $rating = Ratting::create([
+            'id' => $randomId,
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->products_hidden,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+
+        ]);
+
+        toastify()->success('Cảm quý khách đã đánh giá.', [
+            'duration' => 5000,
+        ]);
+        return redirect()->back();
     }
 }

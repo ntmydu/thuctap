@@ -350,3 +350,37 @@ a {
 .list-inline {
     display: flex;
 }
+
+.line {
+    border: 2px 0 2px 0 solid;
+    border-color: #ccc;
+    border-right: 0;
+    border-left: 0;
+}
+
+#toggleReviews {
+    justify-content: center;
+}
+
+.btn {
+    align-items: center;
+}
+
+.credit-cart {
+    width: 50px;
+    height: 40px;
+}
+
+.credit-cart a {
+    height: 40px;
+}
+
+.credit-cart a svg {
+    width: 25px;
+    height: 25px;
+    margin-top: 13px;
+}
+
+.order-table {
+    border: 2px solid #ccc;
+}

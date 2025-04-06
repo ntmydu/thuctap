@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
         // --Order--
         Route::get('/order/list', [OrderAdController::class, 'index']);
         Route::get('/order/detail/{id}', [OrderAdController::class, 'view'])->name('order.detail');
+        Route::post('/update/status/order/{id}', [OrderAdController::class, 'update'])->name('admin.orders.update');
         Route::get('/order/search', [OrderAdController::class, 'search'])->name('order.search');
 
         // --Discount--
@@ -117,11 +118,20 @@ Route::get('/product/search', [HomeController::class, 'search'])->name('search')
 // --Product--
 Route::get('/product/detail/{order}', [ProductFeController::class, 'index'])->name('product.detail');
 Route::get('/product/list/{id}', [ProductFeController::class, 'show'])->name('product.list');
+
+Route::get('/review/{id}', [ProductFeController::class, 'showReview'])->name('view.review');
 Route::post('product/review', [ProductFeController::class, 'addReview'])->name('product.review');
 
 //--Order--
 Route::post('/order/confirm', [OrderController::class, 'showconfirm'])->name('order.confirm');
 Route::get('/order/review', [OrderController::class, 'reviewOrder'])->name('order.review');
 Route::get('/order', [OrderController::class, 'index'])->name('order');
+
 Route::post('/applyDiscount', [OrderController::class, 'applydiscount'])->name('discount.apply');
 Route::post('/add/order', [OrderController::class, 'create'])->name('order.add');
+Route::get('order/management', [OrderController::class, 'showlistOd'])->name('order.management');
+Route::get('order/pending', [OrderController::class, 'listOrdpending'])->name('order.pending');
+Route::get('order/delivered', [OrderController::class, 'listOrddelivered'])->name('order.delivered');
+Route::get('order/cancelled', [OrderController::class, 'listOrdCancelled'])->name('order.cancelled');
+Route::get('order/pending', [OrderController::class, 'listOrdpending'])->name('order.pending');
+Route::post('cancel/order/{id}', [OrderController::class, 'cancelOrd'])->name('cancel.order');

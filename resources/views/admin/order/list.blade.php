@@ -18,6 +18,7 @@
     </form>
 
 </div>
+
 <table class="table">
     <thead>
         <tr>
@@ -26,6 +27,7 @@
             <th>Email</th>
             <th>Số lượng</th>
             <th>Ngày Đặt hàng</th>
+            <th>Trạng thái</th>
             <th style="width: 100px">&nbsp;</th>
         </tr>
     </thead>
@@ -33,10 +35,25 @@
         @foreach($orders as $key => $order)
         <tr>
             <td>{{ $order->id }}</td>
-            <td>{{ $order->customer->name }}</td>
-            <td>{{ $order->customer->email}}</td>
+            <td>{{ $order->name_customer }}</td>
+            <td>{{ $order->email}}</td>
             <td>{{ $order->quantity}}</td>
             <td>{{ $order->created_at }}</td>
+            <td>
+                @if($order->status == 'pending')
+                <span class="badge bg-warning">Đang giao hàng</span>
+                @elseif($order->status == 'delivered')
+                <span class="badge bg-success">Đã giao</span>
+                @elseif($order->status == 'cancelled')
+                <span class="badge bg-danger">Đã hủy</span>
+                @elseif($order->status == 'reviewed')
+                <span class="badge bg-info">Đã đánh giá</span>
+                @elseif($order->status == 'confirmed')
+                <span class="badge bg-primary">Đã xác nhận</span>
+                @else ($order->status == 'unconfirmed')
+                <span class="badge bg-secondary">Chưa xác nhận</span>
+                @endif
+            </td>
             <td>
                 <a class="btn btn-dark btn-sm" href="/admin/order/detail/{{$order->id}}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">

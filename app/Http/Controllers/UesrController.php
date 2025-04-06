@@ -40,6 +40,8 @@ class UesrController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
+
+
         // // Chuyển hướng đến trang đăng nhập hoặc trang khác
         return view('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
     }
@@ -49,6 +51,7 @@ class UesrController extends Controller
     }
     public function login(Request $request)
     {
+
         $menus = Menu::all();
         // $slides = Slide::orderBy('id', 'DESC')->where('status', '1')->take(4)->get();
         $slides =  Slide::orderBy('id', 'DESC')->get();
@@ -64,7 +67,6 @@ class UesrController extends Controller
                 Auth::login($user);
 
                 if (Auth::check()) {
-                    $user = Auth::user();
                     if (Auth::user()->role == 'admin') {
                         toastify()->success('Đăng nhập thành công', [
                             'duration' => 5000,

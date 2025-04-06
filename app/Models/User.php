@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -18,9 +17,11 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    // Tắt tính năng auto-increment
+    protected $keyType = 'string'; // Thay đổi kiểu khóa chính thành string
+    public $incrementing = false; // Tắt tính năng auto-increment
     protected  $table = 'users';
     protected $fillable = [
+        'id',
         'name',
         'email',
         'role',
@@ -32,6 +33,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
     protected $hidden = [
         'password',
         'remember_token',

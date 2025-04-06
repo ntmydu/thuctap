@@ -140,21 +140,31 @@ class OrderController extends Controller
             // Lấy thông tin session giỏ hàng 
             $carts = session()->get('cart', []);
             // Lấy thông tin khách hàng từ session
+
             $order = session()->get('order', []);
             if (is_null($carts) || is_null($order)) {
                 return false;
             }
 
+            if (Auth::check()) {
+                $customerId = Auth::user()->id;
+            } else {
+                $customerId = $order['id'];
+            }
+
+
             // Lưu thông tin khách hàng vào table Customer 
-            $customer = Customer::create([
-                'id' => $order['id'],
-                'name' => $order['name'],
-                'email' => $order['email'],
-                'phone' => $order['phone'],
-                'address' => $order['address'],
-            ]);
+            // $newCustomer = Customer::create([
+            //     'id' => $customerId,
+            //     'name' => $order['name'],
+            //     'email' => $order['email'],
+            //     'phone' => $order['phone'],
+            //     'address' => $order['address'],
+            // ]);
+
 
             $randomId = Str::random(10);
+
             $totalPrice = 0;
             $totalQuantity = 0;
             // Thêm sản phẩm trong giỏ vào table Carts 
@@ -163,9 +173,14 @@ class OrderController extends Controller
                 $totalQuantity += $cart['quantity'];
             }
 
+
             $orderNew = Order::create([
                 'id' => $randomId,
-                'customer_id' => $customer->id,
+                'customer_id' => $customerId,
+                'name_customer' => $order['name'],
+                'email' => $order['email'],
+                'phone' => $order['phone'],
+                'address' => $order['address'],
                 'payment_id' => $request->payment_method,
                 'quantity' => $totalQuantity,
                 'price' => $totalPrice,
@@ -193,6 +208,10 @@ class OrderController extends Controller
                     $product->stock -= $cart['quantity'];
                     $product->save();
                 }
+            } else {
+                toastify()->error('Tạo đơn hàng thất bại', [
+                    'duration' => 5000,
+                ]);
             }
 
             // Lưu phương thức thanh toán vào bảng PaymentMethods
@@ -225,5 +244,77 @@ class OrderController extends Controller
             ]);
             return false;
         }
+    }
+    public function showlistOd()
+    {
+        if (!Auth::check()) {
+
+            return redirect()->route('view.login')->with('error', 'Bạn cần đăng nhập khi mua hàng để xem được lịch sử mua hàng.');
+        }
+
+        $orderUnconfirmed = Order::where('customer_id', Auth::user()->id)->where('status', 'unconfirmed')->with('product')->get();
+
+        $menus = Menu::all();
+        return view('fontend.order.list', [
+            'menus' => $menus,
+            'orderUnconfirmed' => $orderUnconfirmed
+        ]);
+    }
+    public function listOrdpending()
+    {
+        if (!Auth::check()) {
+
+            return redirect()->route('view.login')->with('error', 'Bạn cần đăng nhập khi mua hàng để xem được lịch sử mua hàng.');
+        }
+
+        $orderPending = Order::where('customer_id', Auth::user()->id)->where('status', 'pending')->with('product')->get();
+
+        $menus = Menu::all();
+        return view('fontend.order.pending', [
+            'menus' => $menus,
+            'orderPending' => $orderPending
+        ]);
+    }
+    public function listOrddelivered()
+    {
+        if (!Auth::check()) {
+
+            return redirect()->route('view.login')->with('error', 'Bạn cần đăng nhập khi mua hàng để xem được lịch sử mua hàng.');
+        }
+
+        $orderDelivered = Order::where('customer_id', Auth::user()->id)->where('status', 'delivered')->with('product')->get();
+
+        $menus = Menu::all();
+
+        return view('fontend.order.delivered', [
+            'menus' => $menus,
+            'orderDelivered' => $orderDelivered
+        ]);
+    }
+    public function listOrdCancelled()
+    {
+        if (!Auth::check()) {
+
+            return redirect()->route('view.login')->with('error', 'Bạn cần đăng nhập khi mua hàng để xem được lịch sử mua hàng.');
+        }
+
+        $orderCancelled = Order::where('customer_id', Auth::user()->id)->where('status', 'cancelled')->with('product')->get();
+
+        $menus = Menu::all();
+
+        return view('fontend.order.cancelled', [
+            'menus' => $menus,
+            'orderCancelled' => $orderCancelled
+        ]);
+    }
+    public function cancelOrd($id)
+    {
+        $order = Order::findOrFail($id);
+        if ($order->status !== 'unconfirmed') {
+            return redirect()->back()->with('error', 'Không thể hủy đơn này.');
+        }
+        $order->status = 'cancelled';
+        $order->save();
+        return redirect()->back();
     }
 }

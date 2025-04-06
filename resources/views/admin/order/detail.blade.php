@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a href="/admin/order/list" class="btn btn-dark">Quay Về Danh Sách Đơn Hàng</a>
     <h1>COCOON VIETNAM</h1>
     @if($order)
     <div class="row">
@@ -16,10 +17,10 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label><strong>Tên Khách Hàng:</strong> {{ $customer->name  }}</label>
-                <p><strong>Số Điện Thoại:</strong> {{ $customer->phone}}</p>
-                <label><strong>Email Khách Hàng:</strong> {{$customer->email}}</label>
-                <p><strong>Địa Chỉ:</strong> {{$customer->address}}</p>
+                <label><strong>Tên Khách Hàng:</strong> {{ $order->name_customer  }}</label>
+                <p><strong>Số Điện Thoại:</strong> {{ $order->phone}}</p>
+                <label><strong>Email Khách Hàng:</strong> {{$order->email}}</label>
+                <p><strong>Địa Chỉ:</strong> {{$order->address}}</p>
             </div>
         </div>
 
@@ -55,13 +56,30 @@
         <p><i>Tiền thu người nhận:</i> <strong>{{number_format($order->price, 0, ',', '.')}} VND</strong> </p>
     </div>
 
+    <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="status">Chọn trạng thái:</label>
+            <select style="width:200px" name="status" id="status" class="form-control">
+                <option value="unconfirmed" {{ $order->status == 'unconfirmed' ? 'selected' : '' }}>Chờ xác nhận
+                </option>
+                <option value="confirmed" {{ $order->status == 'confirmed' ? 'selected' : '' }}>Đã xác
+                    nhận
+                </option>
+                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Đang giao</option>
+                <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>Đã giao</option>
+                <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
+                <option value="reviewed" {{ $order->status == 'reviewed' ? 'selected' : '' }}>Đã đánh giá</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-dark">Cập nhật</button>
+    </form>
 
 
 
 
 
 
-    <a href="" class="btn btn-dark">Quay Về Danh Sách Đơn Hàng</a>
     @else
     <p>Không có thông tin đơn hàng.</p>
     @endif

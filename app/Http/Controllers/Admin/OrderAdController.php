@@ -17,11 +17,11 @@ class OrderAdController extends Controller
 {
     public function index()
     {
-        $customers = Customer::orderBy('id', 'DESC');
+
         $orders = Order::orderBy('created_at', 'DESC')->paginate(15);
         $products = Product::get();
         return view('admin.order.list', [
-            'customers' => $customers,
+
             'orders' => $orders,
             'products' => $products
         ]);
@@ -33,12 +33,12 @@ class OrderAdController extends Controller
 
 
         if ($order) {
-            $customer = Customer::find($order->customer_id);
+
             $products = ProductsOrder::where('order_id', $order->id)->get();
 
             return view('admin.order.detail', [
                 'order' => $order,
-                'customer' => $customer,
+
                 'products' => $products
             ]);
         }
@@ -58,6 +58,16 @@ class OrderAdController extends Controller
             'search_order' => $search_order,
 
         ]);
+    }
+    public function update(Request $request, $id)
+    {
+
+        $order = Order::findOrFail($id);
+        $order->status = $request->input('status');
+        $order->save();
+
+
+        return redirect()->back()->with('success', 'Trạng thái đơn hàng đã được cập nhật!');
     }
     // public function printOrder($id)
     // {

@@ -8,41 +8,41 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
     <style>
-        body {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgb(1, 38, 12);
-            background: linear-gradient(162deg, rgba(1, 38, 12, 1) 0%, rgba(23, 77, 25, 1) 34%, rgba(1, 25, 1, 1) 100%);
-        }
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgb(1, 38, 12);
+        background: linear-gradient(162deg, rgba(1, 38, 12, 1) 0%, rgba(23, 77, 25, 1) 34%, rgba(1, 25, 1, 1) 100%);
+    }
 
-        .form-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 16px;
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 16px;
 
-        }
+    }
 
-        .heading {
-            color: #fff;
-            margin: 0 auto;
-            display: block;
-            text-align: center;
-        }
+    .heading {
+        color: #fff;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+    }
 
-        .form-label {
-            color: #fff;
-        }
+    .form-label {
+        color: #fff;
+    }
 
-        .form-text {
-            color: #fff;
-        }
+    .form-text {
+        color: #fff;
+    }
 
-        .form-check-label {
-            color: #fff;
-        }
+    .form-check-label {
+        color: #fff;
+    }
     </style>
 </head>
 
@@ -73,6 +73,7 @@
                                 placeholder="Nhập lại mật khẩu">
                         </div> -->
                         <button type="submit" class="btn btn-success">Đăng nhập</button>
+                        <a href="/regis">Đăng ký</a>
                     </form>
                 </div>
 

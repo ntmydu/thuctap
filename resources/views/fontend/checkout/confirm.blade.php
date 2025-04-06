@@ -1,8 +1,9 @@
 @extends('fontend.main')
 @section('fontend-content')
 <div class="container">
-    <div class="row">
-        <form action="{{route('order.add')}}" method="POST">
+    <form action="{{route('order.add')}}" method="POST">
+        <div style="font-size:medium;" class="row">
+
             @csrf
             <div class="col-md-6">
 
@@ -24,11 +25,7 @@
                     <input type="text" readonly class="form-control" name="note" value="{{session('order.note')}}"
                         placeholder="Nhập ghi chú về đơn hàng(Nếu có)">
                 </div>
-                <div id="dis" class="form-group">
-                    <label class="discount-lab" readonly for="note">Mã giảm giá:</label>
-                    <input class="discount" type="text" class="form-control" placeholder="Nhập mã giảm giá">
-                    <button class="btn btn-dark">Áp dụng</button>
-                </div>
+
             </div>
 
             <div class="col-md-6">
@@ -60,11 +57,11 @@
 
             <button type="submit" class="btn btn-primary">Thanh Toán</button>
 
-        </form>
-        <a href="{{route('order')}}">
-            <button>Quay lại</button>
-        </a>
+    </form>
+    <a href="{{route('order')}}">
+        <button>Quay lại</button>
+    </a>
 
-    </div>
+</div>
 </div>
 @endsection
