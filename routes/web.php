@@ -112,7 +112,7 @@ Route::delete('/destroy/cart/{id}', [CartController::class, 'delete'])->name('ca
 //--homepage--
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/product/search', [HomeController::class, 'search'])->name('search');
-// Route::get('/show{id}', [HomeController::class, 'show'])->name('show');
+Route::get('test/mail', [HomeController::class, 'testMail']);
 
 
 // --Product--

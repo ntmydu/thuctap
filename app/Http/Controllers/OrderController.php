@@ -16,6 +16,7 @@ use App\Models\ReturnOrd;
 use App\Models\ProductsOrder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Container\Attributes\DB;
 use Nette\Utils\Random;
 
@@ -236,6 +237,7 @@ class OrderController extends Controller
             // Hủy giỏ hàng và xóa dữ liệu khách hàng trong session 
             session()->forget('cart');
             session()->forget('order');
+
             return view('fontend.checkout.thanks');
         } catch (\Exception $err) {
 

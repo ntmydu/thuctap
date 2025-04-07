@@ -6,6 +6,8 @@ use App\Models\Slide;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Upload;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,5 +39,15 @@ class HomeController extends Controller
             'search_product' => $search_product,
             'images' => $images
         ]);
+    }
+    public function testMail()
+    {
+        set_time_limit(60);
+        $name = 'Quý khách'; // Tên người nhận
+
+        Mail::send('fontend.order.mail', ['name' => $name], function ($email) use ($name) {
+            $email->to('ntmydu1706@gmail.com', $name) // Địa chỉ email và tên hiển thị
+                ->subject('Xác nhận đơn hàng'); // Tiêu đề email
+        });
     }
 }
