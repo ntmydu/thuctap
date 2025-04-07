@@ -12,10 +12,12 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Discount;
+use App\Models\ReturnOrd;
 use App\Models\ProductsOrder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Container\Attributes\DB;
+use Nette\Utils\Random;
 
 class OrderController extends Controller
 {
@@ -278,17 +280,21 @@ class OrderController extends Controller
     public function listOrddelivered()
     {
         if (!Auth::check()) {
-
             return redirect()->route('view.login')->with('error', 'Bạn cần đăng nhập khi mua hàng để xem được lịch sử mua hàng.');
         }
 
+
+
         $orderDelivered = Order::where('customer_id', Auth::user()->id)->where('status', 'delivered')->with('product')->get();
+        $returnOrder = ReturnOrd::get();
 
         $menus = Menu::all();
 
+
         return view('fontend.order.delivered', [
             'menus' => $menus,
-            'orderDelivered' => $orderDelivered
+            'orderDelivered' => $orderDelivered,
+            'returnOrder' => $returnOrder
         ]);
     }
     public function listOrdCancelled()
@@ -316,5 +322,37 @@ class OrderController extends Controller
         $order->status = 'cancelled';
         $order->save();
         return redirect()->back();
+    }
+    public function request($id)
+    {
+        $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
+        $order = Order::find($id);
+        return view('fontend.order.return', [
+            'menus' => $menus,
+            'order' => $order
+        ]);
+    }
+    public function return(Request $request)
+    {
+
+        $orderUnconfirmed = Order::where('customer_id', Auth::user()->id)->where('status', 'unconfirmed')->with('product')->get();
+        $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
+        $randomId = Str::random(10);
+
+        $return = ReturnOrd::create([
+            'id' => $randomId,
+            'order_id' => $request->order_id,
+            'user_id' => Auth::user()->id,
+            'reason' => $request->reason,
+            'method' => $request->method,
+        ]);
+
+        return view('fontend.order.list', [
+            'menus' => $menus,
+            'orderUnconfirmed' => $orderUnconfirmed
+        ]);
+        toastify()->error('Yêu cầu đã được gửi. Vui lòng gửi thông tin qua zalo của CoCoonVietNam: 0989999888', [
+            'duration' => 5000,
+        ]);
     }
 }

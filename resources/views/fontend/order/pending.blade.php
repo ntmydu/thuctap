@@ -31,7 +31,7 @@
                 <strong>Ngày đặt:</strong>{{$order->created_at}}<br>
                 <strong>Tổng tiền:</strong>{{number_format($order->price, 0, ',', '.')}}
             </li>
-            <button class="btn btn-danger">Hủy Đơn Hàng</button>
+
             @endforeach
         </ul>
 

@@ -36,6 +36,7 @@
         <p>Đơn hàng của bạn đã được gửi thành công.</p>
         <p>Chúng tôi sẽ xử lý đơn hàng của bạn trong thời gian sớm nhất.</p>
         <p>Vui lòng kiểm tra email của bạn để biết thêm thông tin.</p>
+        <p>Khi nhận hàng vui lòng quay video mở hàng để được hổ trợ đổi trả dễ dàng</p>
         <a href="/" class="btn btn-primary">Quay về trang chủ</a>
     </div>
 </body>

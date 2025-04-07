@@ -135,3 +135,5 @@ Route::get('order/delivered', [OrderController::class, 'listOrddelivered'])->nam
 Route::get('order/cancelled', [OrderController::class, 'listOrdCancelled'])->name('order.cancelled');
 Route::get('order/pending', [OrderController::class, 'listOrdpending'])->name('order.pending');
 Route::post('cancel/order/{id}', [OrderController::class, 'cancelOrd'])->name('cancel.order');
+Route::get('request/return/order/{id}', [OrderController::class, 'request'])->name('request.view');
+Route::post('request/return', [OrderController::class, 'return'])->name('request.return');

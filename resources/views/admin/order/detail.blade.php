@@ -6,7 +6,8 @@
     <h1>COCOON VIETNAM</h1>
     @if($order)
     <div class="row">
-        <p><strong>ID Đơn Hàng:</strong> {{ $order->id }}</p>
+        <label><strong>ID Đơn Hàng:</strong> {{ $order->id }}</label>
+        <p><strong>Ngày đặt:</strong>{{ $order->created_at }}</p>
     </div>
     <div class="row">
         <div class="col-md-6">

@@ -18,25 +18,37 @@
 
 </nav>
 <div class="container">
+    @foreach($orderDelivered as $order)
+    <form action="{{ route('request.view', $order->id) }}">
+        @csrf
+        <div class="order-status">
 
 
-    <div class="order-status">
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <strong>Mã đơn hàng:</strong>{{$order->id}}<br>
+
+                    <strong>Ngày đặt:</strong>{{$order->created_at}}<br>
+                    <strong>Tổng tiền:</strong>{{number_format($order->price, 0, ',', '.')}}
+                </li>
 
 
-        <ul class="list-group">
-            @foreach($orderDelivered as $order)
-            <li class="list-group-item">
-                <strong>Mã đơn hàng:</strong>{{$order->id}}<br>
+                @foreach($returnOrder as $orderRe)
+                @if($order->id == $orderRe->order_id)
+                <button class="btn btn-danger">
+                    Đang xử lý </button>
+                @else
+                <button class="btn btn-danger">
+                    Yêu cầu hoàn tiền/Trả hàng</button>
+                @endif
+                @endforeach
+                @endforeach
+            </ul>
 
-                <strong>Ngày đặt:</strong>{{$order->created_at}}<br>
-                <strong>Tổng tiền:</strong>{{number_format($order->price, 0, ',', '.')}}
-            </li>
-            <button class="btn btn-danger">Hủy Đơn Hàng</button>
-            @endforeach
-        </ul>
 
-
-    </div>
+        </div>
+    </form>
 </div>
 
 @endsection
