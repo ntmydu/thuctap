@@ -70,6 +70,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/order/detail/{id}', [OrderAdController::class, 'view'])->name('order.detail');
         Route::post('/update/status/order/{id}', [OrderAdController::class, 'update'])->name('admin.orders.update');
         Route::get('/order/search', [OrderAdController::class, 'search'])->name('order.search');
+        Route::get('/return/order', [OrderAdController::class, 'showreturn']);
+        Route::get('/return/detail/{id}', [OrderAdController::class, 'viewReturn'])->name('return.detail');
+        Route::post('/update/status/return/{id}', [OrderAdController::class, 'edit'])->name('admin.return.edit');
 
         // --Discount--
         Route::get('discount/add', [DiscountController::class, 'create']);

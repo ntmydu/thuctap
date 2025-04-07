@@ -73,14 +73,14 @@ class OrderController extends Controller
     public function applydiscount(Request $request)
     {
         if (!Auth::check()) {
-            return redirect()->route('view.login')->with('error', 'Bạn cần đăng nhập để sử dụng mã giảm giá.');
+            return redirect()->route('view.login');
         }
         $code = $request->discount_code;
 
         $discount = Discount::where('code', $code)->first();
 
         if (!$discount) {
-            return redirect()->back()->with('error', 'Mã không hợp lệ.');
+            return redirect()->back();
         }
 
         $carts = session()->get('cart', []);

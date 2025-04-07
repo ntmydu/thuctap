@@ -9,7 +9,7 @@
         <div class="main">
             @include('admin.navbar')
             <main class="content">
-                @include('admin.alert')
+
                 @yield('content')
             </main>
             @include('admin.footer')

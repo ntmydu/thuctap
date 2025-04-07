@@ -58,7 +58,7 @@
                         <a href="/admin/order/list" class="sidebar-link">Danh sách đơn hàng</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Hóa đơn</a>
+                        <a href="/admin/return/order" class="sidebar-link">Đơn hàng đổi trả</a>
                     </li>
 
                 </ul>

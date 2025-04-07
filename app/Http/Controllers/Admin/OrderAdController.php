@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\Order;
 use App\Models\Upload;
 use App\Models\Payment;
+use App\Models\ReturnOrd;
 
 use App\Models\ProductsOrder;
 
@@ -69,6 +70,39 @@ class OrderAdController extends Controller
 
         return redirect()->back()->with('success', 'Trạng thái đơn hàng đã được cập nhật!');
     }
+    public function showreturn()
+    {
+        $returns = ReturnOrd::orderBy('created_at', 'DESC')->paginate(15);
+        return view('admin.order.return', [
+            'returns' => $returns
+        ]);
+    }
+    public function viewReturn($id)
+    {
+
+        $return = ReturnOrd::find($id);
+
+
+
+
+        return view('admin.order.returndet', [
+            'return' => $return,
+
+
+        ]);
+    }
+    public function edit(Request $request, $id)
+    {
+
+        $return = ReturnOrd::findOrFail($id);
+        $return->status = $request->input('status');
+        $return->save();
+
+
+        return redirect()->back();
+    }
+}
+
     // public function printOrder($id)
     // {
     //     $order = Order::find($id);
@@ -85,4 +119,3 @@ class OrderAdController extends Controller
     //     ]);
     //     return $pdf->download('don_hang_' . $order->id . '.pdf');
     // }    
-}
