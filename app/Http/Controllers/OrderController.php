@@ -338,7 +338,6 @@ class OrderController extends Controller
         $orderUnconfirmed = Order::where('customer_id', Auth::user()->id)->where('status', 'unconfirmed')->with('product')->get();
         $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
         $randomId = Str::random(10);
-
         $return = ReturnOrd::create([
             'id' => $randomId,
             'order_id' => $request->order_id,
