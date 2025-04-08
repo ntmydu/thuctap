@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('discount/edit/{id}', [DiscountController::class, 'update'])->name('discount.update');
         Route::DELETE('discount/destroy/{id}', [DiscountController::class, 'destroy'])->name('discount.destroy');
         Route::get('/discount/search', [DiscountController::class, 'search'])->name('discount.search');
-        Route::get('/send/code/discount', [DiscountController::class, 'send'])->name('send.code');
+        Route::post('/send/code/discount/{id}', [DiscountController::class, 'send'])->name('send.code');
 
         Route::get('/logout', [LoginAdController::class, 'logout'])->name('admin.logout');
 

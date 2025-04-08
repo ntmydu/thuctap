@@ -56,6 +56,10 @@
     </div>
     @csrf
 </form>
+<form action="{{route('send.code', $discount->id)}}" method="POST">
+    @csrf
+    <button>Gửi voucher cho khách hàng</button>
+</form>
 @endsection
 
 @section('footer')

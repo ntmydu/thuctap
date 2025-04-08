@@ -71,11 +71,18 @@ class DiscountController extends Controller
 
         ]);
     }
-    public function send()
+    public function send($id)
     {
         $users = User::get();
+        $discount = Discount::where('id', $id)->first();
+
         foreach ($users as $user) {
-            Mail::to($user->email)->send();
+            Mail::send('fontend.email.discount', ['discount' => $discount], function ($email) use ($user) {
+                $email->to($user->email, $user->name)
+                    ->subject('Chương trình khuyến mãi giảm giá từ COCOONVIETNAM'); // Tiêu đề email
+            });
         }
+
+        return redirect()->back();
     }
 }
