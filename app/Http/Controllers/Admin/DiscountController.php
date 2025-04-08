@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class DiscountController extends Controller
 {
@@ -68,5 +70,12 @@ class DiscountController extends Controller
             'search_discount' => $search_discount,
 
         ]);
+    }
+    public function send()
+    {
+        $users = User::get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send();
+        }
     }
 }

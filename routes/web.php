@@ -82,6 +82,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('discount/edit/{id}', [DiscountController::class, 'update'])->name('discount.update');
         Route::DELETE('discount/destroy/{id}', [DiscountController::class, 'destroy'])->name('discount.destroy');
         Route::get('/discount/search', [DiscountController::class, 'search'])->name('discount.search');
+        Route::get('/send/code/discount', [DiscountController::class, 'send'])->name('send.code');
 
         Route::get('/logout', [LoginAdController::class, 'logout'])->name('admin.logout');
 
@@ -116,7 +117,12 @@ Route::delete('/destroy/cart/{id}', [CartController::class, 'delete'])->name('ca
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/product/search', [HomeController::class, 'search'])->name('search');
 Route::get('test/mail', [HomeController::class, 'testMail']);
-
+Route::get('/forget/password', [HomeController::class, 'show']);
+Route::post('send/request', [HomeController::class, 'request'])->name('send.request');
+Route::get('view/recover', [HomeController::class, 'showview'])->name('view.recover');
+Route::post('recover/password', [HomeController::class, 'recover'])->name('recover.password');
+Route::get('newpass', [HomeController::class, 'newpass'])->name('new.pass');
+Route::post('new/pass', [HomeController::class, 'updatepass'])->name('new.password');
 
 // --Product--
 Route::get('/product/detail/{order}', [ProductFeController::class, 'index'])->name('product.detail');

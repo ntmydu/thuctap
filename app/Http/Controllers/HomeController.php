@@ -6,6 +6,8 @@ use App\Models\Slide;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Upload;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -40,6 +42,103 @@ class HomeController extends Controller
             'images' => $images
         ]);
     }
+    public function show()
+    {
+        return view('fontend.password.forget');
+    }
+    public function request(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|exists:users'
+        ]);
+        $user = User::where('email', $request->email)->first();
+
+        $token = strtoupper(Str::random(10));
+        $user->token = $token;
+        $user->save();
+
+        Mail::send(
+            'fontend.email.code',
+            [
+                'user' => $user,
+                'token' => $token
+            ],
+            function ($email) use ($user) {
+                $email->subject('COCOONVIETNAM-Lấy lại mật khẩu');
+                $email->to($user->email);
+            }
+        );
+
+        toastify()->success('Đã gửi mã xác nhận đến mail của bạn.', [
+            'duration' => 5000,
+        ]);
+        return redirect()->route('view.recover');
+    }
+    public function showview()
+    {
+        return view('fontend.password.recover');
+    }
+    public function recover(Request $request, User $user)
+    {
+        // Xác thực dữ liệu
+        $request->validate([
+            'token' => 'required',
+        ]);
+
+        $user = User::where('token', $request->token)->first();
+
+        if ($user) {
+
+            return view('fontend.password.newpass', [
+                'token' => $request->token
+            ]);
+        }
+
+        toastify()->error('Mã xác nhận không chính xác', [
+            'duration' => 5000,
+        ]);
+
+        // Nếu không khớp, có thể thêm thông báo lỗi
+        return back()->withErrors(['token' => 'Token không hợp lệ.']);
+    }
+    public function newpass(Request $request)
+    {
+        return view('fontend.password.newpass');
+    }
+    public function updatepass(Request $request)
+    {
+
+        if ($request->password !== $request->confirm_password) {
+            toastify()->error('Nhập lại mật khẩu không chính xác', [
+                'duration' => 5000,
+            ]);
+
+            return view('fontend.password.newpass', [
+                'token' => $request->token
+            ]);
+        }
+        $user = User::where('token', $request->token)->first();
+        if ($user) {
+            $pass = bcrypt($request->password);
+            $user->token = null;
+            $user->password = $pass;
+            $user->save();
+            toastify()->success('Cập nhật mật khẩu thành công', [
+                'duration' => 5000,
+            ]);
+
+            return redirect()->route('view.login');
+        }
+
+        toastify()->error('Người dùng không tồn tại', [
+            'duration' => 5000,
+        ]);
+
+        return view('fontend.password.newpass', [
+            'token' => $request->token
+        ]);
+    }
+
     public function testMail()
     {
         set_time_limit(60);
