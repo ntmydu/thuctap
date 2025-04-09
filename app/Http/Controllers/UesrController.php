@@ -188,4 +188,37 @@ class UesrController extends Controller
 
         ]);
     }
+    public function showInfo()
+    {
+        $user = Auth::user();
+        return view('fontend.user.info', [
+            'user' => $user
+        ]);
+    }
+    public function showChangePass()
+    {
+        return view('fontend.user.changepass');
+    }
+    public function changePass(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed|min:6',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return redirect()->back();
+            toastify()->success('Đổi mật khẩu thành công', [
+                'duration' => 5000,
+            ]);
+        } else {
+            return redirect()->back();
+            toastify()->error('Mật khẩu cũ không chính xác', [
+                'duration' => 5000,
+            ]);
+        }
+    }
 }

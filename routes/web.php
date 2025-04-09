@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('slide/edit/{id}', [SliderController::class, 'show'])->name('slide.edit');
         Route::post('slide/edit/{id}', [SliderController::class, 'update'])->name('slide.update');
         Route::DELETE('/slide/destroy/{id}', [SliderController::class, 'destroy'])->name('slide.destroy');
+
         // --Order--
         Route::get('/order/list', [OrderAdController::class, 'index']);
         Route::get('/order/detail/{id}', [OrderAdController::class, 'view'])->name('order.detail');
@@ -104,6 +105,9 @@ Route::post('/regis', [UesrController::class, 'regis'])->name('regis');
 Route::get('/login', [UesrController::class, 'showlogin'])->name('view.login');
 Route::post('/login', [UesrController::class, 'login'])->name('login');
 Route::get('/logout', [UesrController::class, 'logout'])->name('logout');
+Route::get('/user/profile', [UesrController::class, 'showInfo']);
+Route::get('/user/changepass', [UesrController::class, 'showChangePass'])->name('user.changepass');
+Route::post('/user/changepass', [UesrController::class, 'changePass'])->name('pass.change');
 // --Cart--
 Route::post('/add/cart', [CartController::class, 'create'])->name('cart.add');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');

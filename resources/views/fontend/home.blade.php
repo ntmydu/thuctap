@@ -75,12 +75,17 @@
 
                         <div class="card-content">
                             <div class="price">
-                                <del class="del">{{number_format($product->price, 0, ',', '.')}}đ</del>
-                                <span class="span">{{number_format($product->price_sale, 0, ',', '.')}}đ</span>
+                                @if($product->price_sale == 0)
+                                <span class="span">{{number_format($product->price, 0, ',', '.')}}VND</span>
+                                @else
+                                <del class="del">{{number_format($product->price, 0, ',', '.')}}VND</del>
+                                <span class="span">{{number_format($product->price_sale, 0, ',', '.')}}VND</span>
+                                @endif
                             </div>
-                            <h3>
-                                <a href="#" class="card-title">{{$product->name}}</a>
+                            <h3 style="font-size: smaller;">
+                                <a style="font-size:1rem" href="#" class="card-title">{{$product->name}}</a>
                             </h3>
+                            <h4 style="color: inherit;">{{$product->content}}</h4>
                             <div>
                                 @if($product->stock <= 0) <button type="submit" class="btn btn-dark">Hết hàng</button>
 

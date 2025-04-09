@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->paginate(15);
+        $products = Product::orderBy('created_at', 'DESC')->get();
         return view('admin.product.list', compact('products'));
     }
     public function create()
@@ -71,7 +71,7 @@ class ProductController extends Controller
         }
 
         // if (Product::create($request->all())) 
-        return redirect('/admin/product/list')->with('success', 'Thêm sản phẩm thành công.');
+        return redirect()->back()->with('success', 'Thêm sản phẩm thành công.');
     }
     public function update(Request $request, $id)
     {

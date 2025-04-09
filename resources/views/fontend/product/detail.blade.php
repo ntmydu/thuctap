@@ -34,8 +34,15 @@
                 <div>
                     <h2 class="title">{{$product->name}}</h2>
                 </div>
-
-                <p class="price">{{number_format($product->price_sale, 0, ',', '.')}}đ</p>
+                <div class="price">
+                    @if($product->price_sale == 0)
+                    <span class="span">{{number_format($product->price, 0, ',', '.')}}VND</span>
+                    @else
+                    <del style="color: #ccc;" class="del">{{number_format($product->price, 0, ',', '.')}}VND</del>
+                    <span style="color: inherit;"
+                        class="span">{{number_format($product->price_sale, 0, ',', '.')}}VND</span>
+                    @endif
+                </div>
                 <div>
                     @if($product->stock <= 0) <button class="btn btn-dark" type="submit">Hết hàng</button>
                         @else
@@ -54,7 +61,7 @@
 
                 <div>
                     <h4 class="sub-title">Mô tả sản phẩm</h4>
-                    <p class="description">4</p>
+                    <p class="description">{{$product->description}}</p>
                 </div>
 
                 <div class="mt-4 line">
