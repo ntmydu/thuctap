@@ -172,4 +172,11 @@ class ProductController extends Controller
 
         ]);
     }
+    public function showlist()
+    {
+        $products = Product::orderBy('created_at', 'DESC')->where('stock', '<', 20)->get();
+        return view('admin.product.soldout', [
+            'products' => $products
+        ]);
+    }
 }

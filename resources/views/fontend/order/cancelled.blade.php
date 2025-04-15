@@ -17,27 +17,29 @@
 
 
 </nav>
-<div class="container">
+<div style="font-size: medium;" class="container">
 
-    <form action=""></form>
-    <div class="order-status">
-
-
-        <ul class="list-group">
-            @foreach($orderCancelled as $order)
-            <li class="list-group-item">
-                <strong>Mã đơn hàng:</strong>{{$order->id}}<br>
-
-                <strong>Ngày đặt:</strong>{{$order->created_at}}<br>
-                <strong>Tổng tiền:</strong>{{number_format($order->price, 0, ',', '.')}}
-            </li>
-            <a href="">Xem chi tiết</a>
-
-            @endforeach
-        </ul>
+    <form action="">
+        <div class="order-status">
 
 
-    </div>
+            <ul class="list-group">
+                @foreach($orderCancelled as $order)
+                <li class="list-group-item">
+                    <strong>Mã đơn hàng: </strong>{{$order->id}}<br>
+
+                    <strong>Ngày đặt: </strong>{{$order->created_at}}<br>
+                    <strong>Tổng tiền: </strong>{{number_format($order->price, 0, ',', '.')}}VND <br>
+                    <a href="">Xem chi tiết</a>
+                </li>
+
+
+                @endforeach
+            </ul>
+
+
+        </div>
+    </form>
 </div>
 
 @endsection

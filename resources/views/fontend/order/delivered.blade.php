@@ -17,7 +17,7 @@
 
 
 </nav>
-<div class="container">
+<div style="font-size: medium;" class="container">
     @foreach($orderDelivered as $order)
     <form action="{{ route('request.view', $order->id) }}">
         @csrf

@@ -28,10 +28,10 @@
             <ul class="list-group">
 
                 <li style="font-size:medium;" class="list-group-item">
-                    <strong>Mã đơn hàng:</strong>{{$order->id}}<br>
+                    <strong>Mã đơn hàng: </strong>{{$order->id}}<br>
 
-                    <strong>Ngày đặt:</strong>{{$order->created_at}}<br>
-                    <strong>Tổng tiền:</strong>{{number_format($order->price, 0, ',', '.')}}
+                    <strong>Ngày đặt: </strong>{{$order->created_at}}<br>
+                    <strong>Tổng tiền: </strong>{{number_format($order->price, 0, ',', '.')}}VND
                 </li>
                 <a style="width: 100%; background-color:beige; padding-left: 475px; color:black;" href="">Chi tiết đơn
                     hàng</a>

@@ -10,7 +10,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('admin.main', [
+        return view('admin.dashboard', [
             'title' => 'Admin CocoonVietNam'
         ]);
     }

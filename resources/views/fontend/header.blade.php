@@ -2,14 +2,14 @@
 
     <div class="alert">
         <div class="container">
-            <p class="alert-text">Miễn phí giao hàng toàn quốc với hóa đơn từ 199.000 +</p>
+            <p class="alert-text">Miễn phí giao hàng toàn quốc với hóa đơn từ 99.000 +</p>
         </div>
     </div>
 
     <!-- Header desktop -->
     <div>
 
-        <div class="wrap-menu-desktop">
+        <div style="background-color: rgba(254, 251, 244);  " class="wrap-menu-desktop">
             <nav class="limiter-menu-desktop container">
 
                 <!-- Menu desktop -->
@@ -77,7 +77,8 @@
                     <div class="wrap-icon-header flex-w flex-r-m">
                         <form action="{{route('search')}}">
                             @csrf
-                            <div style="width:50px; display: flex; align-items: center; gap:10px;" class="search">
+                            <div style="width:50px; display: flex; align-items: center; gap:10px; flex-direction:row-reverse;"
+                                class="search">
                                 <div style="width:50px;justify-items: center;"
                                     class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                                     <i style="align-items: center;" class=" zmdi zmdi-search"></i>
@@ -195,39 +196,39 @@
 
 
 <script>
-const dropdownMenu = document.querySelector(".dropdown-menu")
-const dropdownArrow = document.querySelector('.dropdown-arrrow')
-const dropdown = document.querySelector('.dropdown').addEventListener('click', (e) => {
-    if (dropdownMenu.style.display == 'block') {
-        dropdownMenu.style.display = 'none'
-        dropdownArrow.style.rotate = '90deg'
-    } else {
-        dropdownMenu.style.display = 'block'
-        dropdownArrow.style.rotate = '-90deg'
-    }
-})
+    const dropdownMenu = document.querySelector(".dropdown-menu")
+    const dropdownArrow = document.querySelector('.dropdown-arrrow')
+    const dropdown = document.querySelector('.dropdown').addEventListener('click', (e) => {
+        if (dropdownMenu.style.display == 'block') {
+            dropdownMenu.style.display = 'none'
+            dropdownArrow.style.rotate = '90deg'
+        } else {
+            dropdownMenu.style.display = 'block'
+            dropdownArrow.style.rotate = '-90deg'
+        }
+    })
 </script>
 <script>
-document.querySelector('.js-show-modal-search').addEventListener('click', function() {
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput.style.display === 'block') {
-        searchInput.style.display = 'none';
-    } else {
-        searchInput.style.display = 'block';
-        searchInput.focus();
-    }
-});
+    document.querySelector('.js-show-modal-search').addEventListener('click', function() {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput.style.display === 'block') {
+            searchInput.style.display = 'none';
+        } else {
+            searchInput.style.display = 'block';
+            searchInput.focus();
+        }
+    });
 </script>
 
 <script>
-const dropdownBtnElement = document.getElementById('dropdown-btn')
-const dropdownInfoElement = document.getElementById('dropdown-info')
+    const dropdownBtnElement = document.getElementById('dropdown-btn')
+    const dropdownInfoElement = document.getElementById('dropdown-info')
 
-dropdownBtnElement.addEventListener('click', () => {
-    if (dropdownInfoElement.style.display === 'flex') {
-        dropdownInfoElement.style.display = 'none'
-    } else {
-        dropdownInfoElement.style.display = 'flex'
-    }
-})
+    dropdownBtnElement.addEventListener('click', () => {
+        if (dropdownInfoElement.style.display === 'flex') {
+            dropdownInfoElement.style.display = 'none'
+        } else {
+            dropdownInfoElement.style.display = 'flex'
+        }
+    })
 </script>

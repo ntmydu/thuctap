@@ -138,7 +138,6 @@ class OrderController extends Controller
     }
     public function create(Request $request)
     {
-
         try {
             // Lấy thông tin session giỏ hàng 
             $carts = session()->get('cart', []);
@@ -177,13 +176,14 @@ class OrderController extends Controller
             }
 
 
+
             $orderNew = Order::create([
                 'id' => $randomId,
                 'customer_id' => $customerId,
                 'name_customer' => $order['name'],
                 'email' => $order['email'],
                 'phone' => $order['phone'],
-                'address' => $order['address'],
+                'address' => 'An Giang',
                 'payment_id' => $request->payment_method,
                 'quantity' => $totalQuantity,
                 'price' => $totalPrice,
@@ -217,7 +217,6 @@ class OrderController extends Controller
                 ]);
             }
 
-            // Lưu phương thức thanh toán vào bảng PaymentMethods
             Payment::create([
                 'payment_method' => $request->payment_method,
                 'status' => 1,
@@ -231,10 +230,7 @@ class OrderController extends Controller
             ]);
 
 
-            // Tạo hàng đợi và thực hiện send mail 
-            // SendMail::dispatch($customerInfo['email'])->delay(now()->addSeconds(2));
 
-            // Hủy giỏ hàng và xóa dữ liệu khách hàng trong session 
             session()->forget('cart');
             session()->forget('order');
 

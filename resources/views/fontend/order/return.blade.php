@@ -31,7 +31,7 @@
                     hàng</strong>,
                 video khui hàng và ảnh hàng lỗi qua zalo của CocoonVietNam: <strong>0989999888</strong>(sẽ được xử lý
                 nhanh hơn) hoặc
-                email: <strong>cocoonvn@gamil.com</strong></p>
+                email: <strong>cocoonvn@gmail.com</strong></p>
 
             <button type="submit" class="btn btn-dark">Gửi Yêu Cầu</button>
         </form>

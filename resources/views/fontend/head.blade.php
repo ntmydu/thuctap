@@ -66,3 +66,56 @@
 <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 @toastifyCss
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .list-thumbs-footer {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .thumbs-container {
+        display: flex;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        width: 100%;
+    }
+
+    .thumb-item {
+        flex: 0 0 auto;
+        width: 100px;
+    }
+
+    .product-img-thumb {
+        width: 100%;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .product-img-thumb:hover {
+        transform: scale(1.1);
+    }
+
+    .btn-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .btn-arrow.left-arrow {
+        left: 0;
+    }
+
+    .btn-arrow.right-arrow {
+        right: 0;
+    }
+
+    .btn-arrow:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+</style>

@@ -15,14 +15,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgb(1, 38, 12);
-        background: linear-gradient(162deg, rgba(1, 38, 12, 1) 0%, rgba(23, 77, 25, 1) 34%, rgba(1, 25, 1, 1) 100%);
+        background: rgb(234, 208, 200);
+
     }
 
     .form-container {
         border: 1px solid #ccc;
         padding: 20px;
         border-radius: 16px;
+        background-color: rgb(211, 163, 149);
 
     }
 
@@ -73,9 +74,9 @@
                             <input type="password" class="form-control" name="password" id="exampleInputPassword1"
                                 placeholder="Nhập lại mật khẩu">
                         </div> -->
-                        <button type="submit" class="btn btn-success">Đăng nhập</button>
-                        <a href="/forget/password">Quên mật khẩu</a>
-                        <a href="/regis">Đăng ký</a>
+                        <button type="submit" class="btn btn-dark">Đăng nhập</button>
+                        <a style="color:black;" href="/forget/password">Quên mật khẩu</a>&nbsp; &nbsp;
+                        <a style="color:black;" href="/regis">Đăng ký</a>
                     </form>
                 </div>
 

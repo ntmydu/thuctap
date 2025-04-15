@@ -5,6 +5,10 @@
     @include('fontend.head')
 
     <style>
+    body {
+        background-color: rgba(254, 251, 244);
+    }
+
     .main-content {
         margin-top: 150px;
         display: flex;

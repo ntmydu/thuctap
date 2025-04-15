@@ -40,6 +40,9 @@
                         <a href="\admin\product\list" class="sidebar-link">Danh sách sản phẩm</a>
                     </li>
                     <li class="sidebar-item">
+                        <a href="\admin\product\soldout" class="sidebar-link">Danh sách sản phẩm sắp hết</a>
+                    </li>
+                    <li class="sidebar-item">
                         <a href="\admin\product\add" class="sidebar-link">Thêm sản phẩm</a>
                     </li>
                 </ul>
@@ -86,15 +89,15 @@
                     data-bs-target="#slide" aria-expanded="false" aria-controls="slide">
                     <i class=" align-middle" data-feather="sliders"></i>
                     <span class="align-middle">
-                        Slide
+                        Mẫu quảng cáo
                     </span>
                 </a>
                 <ul id="slide" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="/admin/slide/list" class="sidebar-link">Danh sách slide</a>
+                        <a href="/admin/slide/list" class="sidebar-link">Danh sách mẫu quảng cáo</a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/admin/slide/add" class="sidebar-link">Thêm slide</a>
+                        <a href="/admin/slide/add" class="sidebar-link">Thêm mẫu</a>
                     </li>
                 </ul>
 
