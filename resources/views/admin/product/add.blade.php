@@ -35,6 +35,14 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="">Hướng dẫn sử dụng</label>
+                    <textarea name="instructions" id="instructions" class="form-control"
+                        placeholder="Nhập hướng dẫn"></textarea>
+                    @error('instructions')
+                    <small class="help-block">{{$message}}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="">Danh sách ảnh</label>
                     <input type="file" name="images[]" class="form-control" id="image_name" multiple>
                     @error('image_list')
@@ -123,11 +131,11 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
 <script>
-$('#description').summernote({
-    placeholder: 'Nhập mô tả chi tiết của sản phẩm',
-    tabsize: 2,
-    height: 100
-});
+    $('#description').summernote({
+        placeholder: 'Nhập mô tả chi tiết của sản phẩm',
+        tabsize: 2,
+        height: 100
+    });
 </script>
 
 

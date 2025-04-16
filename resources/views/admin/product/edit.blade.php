@@ -34,6 +34,14 @@
                 @enderror
             </div>
             <div class="form-group">
+                <label for="">Hướng dẫn sử dụng</label>
+                <textarea name="instructions" id="instructions"
+                    class="form-control">{{$product->instructions}}</textarea>
+                @error('instructions')
+                <small class="help-block">{{$message}}</small>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label for="">Danh sách ảnh</label>
                 <div class="list-images">
                     @foreach($images as $image)
@@ -128,10 +136,10 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
 <script>
-$('#description').summernote({
-    placeholder: 'Hello Bootstrap 4',
-    tabsize: 2,
-    height: 100
-});
+    $('#description').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 100
+    });
 </script>
 @endsection

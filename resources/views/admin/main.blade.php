@@ -7,7 +7,7 @@
     <div class="wrapper">
         @include('admin.sidebar')
         <div class="main">
-            @include('admin.navbar')
+
             <main class="content">
 
                 @yield('content')

@@ -6,166 +6,85 @@
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
 
+            <!-- Thông báo -->
             <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
                     <div class="position-relative">
-                        <i class="align-middle" data-feather="bell"></i>
-                        <span class="indicator">4</span>
+                        <svg style="width: 25px; height: 30px; color:black; fill: #000;"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path
+                                d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
+                        </svg>
+                        @if($newOrders + $newOrdReturn > 0)
+                        <span style="background-color:rgb(230, 12, 12) ;"
+                            class="indicator">{{ $newOrders +  $newOrdReturn }}</span>
+                        @else
+                        <span style="background-color: #0c97e6 ;" class="indicator">0</span>
+                        @endif
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
                     <div class="dropdown-menu-header">
-                        4 New Notifications
+                        {{ $newOrders +  $newOrdReturn }} Thông báo mới
                     </div>
                     <div class="list-group">
-                        <a href="#" class="list-group-item">
+                        <!-- Đơn hàng mới -->
+                        @if($newOrders > 0)
+                        <a href="" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <i class="text-danger" data-feather="alert-circle"></i>
+                                    <i class="text-success" data-feather="shopping-cart"></i>
                                 </div>
                                 <div class="col-10">
-                                    <div class="text-dark">Update completed</div>
-                                    <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-                                    <div class="text-muted small mt-1">30m ago</div>
+                                    <div class="text-dark">Đơn hàng mới</div>
+                                    <div class="text-muted small mt-1">{{$newOrders}} đơn hàng mới</div>
+                                    <div class="text-muted small mt-1">Vừa cập nhật</div>
                                 </div>
                             </div>
                         </a>
-                        <a href="#" class="list-group-item">
+                        @endif
+
+                        <!-- Đơn hàng hoàn trả -->
+                        @if($newOrdReturn > 0)
+                        <a href="" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <i class="text-warning" data-feather="bell"></i>
+                                    <i class="text-danger" data-feather="rotate-ccw"></i>
                                 </div>
                                 <div class="col-10">
-                                    <div class="text-dark">Lorem ipsum</div>
-                                    <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit
-                                        et.</div>
-                                    <div class="text-muted small mt-1">2h ago</div>
+                                    <div style="width: 200px;" class="text-dark">Đơn hàng hoàn trả</div>
+                                    <div class="text-muted small mt-1">{{$newOrdReturn}} yêu cầu hoàn trả</div>
+                                    <div class="text-muted small mt-1">Vừa cập nhật</div>
                                 </div>
                             </div>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <i class="text-primary" data-feather="home"></i>
-                                </div>
-                                <div class="col-10">
-                                    <div class="text-dark">Login from 192.186.1.8</div>
-                                    <div class="text-muted small mt-1">5h ago</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <i class="text-success" data-feather="user-plus"></i>
-                                </div>
-                                <div class="col-10">
-                                    <div class="text-dark">New connection</div>
-                                    <div class="text-muted small mt-1">Christina accepted your request.</div>
-                                    <div class="text-muted small mt-1">14h ago</div>
-                                </div>
-                            </div>
-                        </a>
+                        @endif
                     </div>
-                    <div class="dropdown-menu-footer">
-                        <a href="#" class="text-muted">Show all notifications</a>
-                    </div>
+
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-                    <div class="position-relative">
-                        <i class="align-middle" data-feather="message-square"></i>
-                    </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-                    <div class="dropdown-menu-header">
-                        <div class="position-relative">
-                            4 New Messages
-                        </div>
-                    </div>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-                                        alt="Vanessa Tucker">
-                                </div>
-                                <div class="col-10 ps-2">
-                                    <div class="text-dark">Vanessa Tucker</div>
-                                    <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.
-                                    </div>
-                                    <div class="text-muted small mt-1">15m ago</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
-                                        alt="William Harris">
-                                </div>
-                                <div class="col-10 ps-2">
-                                    <div class="text-dark">William Harris</div>
-                                    <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
-                                    <div class="text-muted small mt-1">2h ago</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
-                                        alt="Christina Mason">
-                                </div>
-                                <div class="col-10 ps-2">
-                                    <div class="text-dark">Christina Mason</div>
-                                    <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-                                    <div class="text-muted small mt-1">4h ago</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-2">
-                                    <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-                                        alt="Sharon Lessman">
-                                </div>
-                                <div class="col-10 ps-2">
-                                    <div class="text-dark">Sharon Lessman</div>
-                                    <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac,
-                                        mattis non.</div>
-                                    <div class="text-muted small mt-1">5h ago</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="dropdown-menu-footer">
-                        <a href="#" class="text-muted">Show all messages</a>
-                    </div>
-                </div>
-            </li>
+
+            <!-- Tài khoản -->
             <li class="nav-item dropdown">
                 <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                     <i class="align-middle" data-feather="settings"></i>
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span
-                        class="text-dark">Charles Hall</span>
+                    <svg style="width: 25px; height: 30px; color:black; fill: #000;" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512" style="width: 20px">
+                        <path
+                            d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
+                    </svg>
+                    <span class="text-dark">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-                            data-feather="user"></i> Profile</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-                        Analytics</a>
+                    <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="user"></i> Hồ sơ</a>
+                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> Cài
+                        đặt</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i>
-                        Settings & Privacy</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
-                        Center</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="log-out"></i> Đăng
+                        xuất</a>
                 </div>
             </li>
         </ul>

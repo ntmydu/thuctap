@@ -45,7 +45,7 @@ class OrderController extends Controller
             'menus' => $menus,
             'products' => $products,
             'slides' => $slides,
-            'totalAmount' => $request->totalAmount,
+            'totalAmount' => $totalAmount,
         ]);
     }
     public function showConfirm(Request $request)

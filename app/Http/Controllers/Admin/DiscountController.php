@@ -6,36 +6,45 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\ReturnOrd;
 use Illuminate\Support\Facades\Mail;
 
 class DiscountController extends Controller
 {
     public function create()
     {
+
         return view('admin.discount.add');
     }
     public function store(Request $request)
     {
+
         $discounts = Discount::create($request->all());
         return redirect()->back()->with('success', 'Thêm mã thành công. ');
     }
     public function index()
     {
+
         $discounts = Discount::orderBy('created_at', 'DESC')->get();
         return view('admin.discount.list', [
-            'discounts' => $discounts
+            'discounts' => $discounts,
+
         ]);
     }
     public function show($id)
     {
+
         $discount = Discount::findOrFail($id);
 
         return view('admin.discount.edit', [
-            'discount' => $discount
+            'discount' => $discount,
+
         ]);
     }
     public function update(Request $request, $id)
     {
+
         $discounts = Discount::findOrFail($id);
         $discounts->name = $request->input('name');
         $discounts->code = $request->input('code');
@@ -45,10 +54,11 @@ class DiscountController extends Controller
         $discounts->start = $request->input('start');
         $discounts->end = $request->input('end');
         $discounts->save();
-        return redirect('/admin/discount/list')->with('success', 'Cập nhật thành công');
+        return redirect('/admin/discount/list', [])->with('success', 'Cập nhật thành công');
     }
     public function destroy($id)
     {
+
 
         $dicount = Discount::find($id);
         $dicount->delete();
@@ -69,10 +79,12 @@ class DiscountController extends Controller
             'discount' => $discount,
             'search_discount' => $search_discount,
 
+
         ]);
     }
     public function send($id)
     {
+
         $users = User::get();
         $discount = Discount::where('id', $id)->first();
 

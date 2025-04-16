@@ -22,6 +22,7 @@ class Product extends Model
         'description',
         'menu_id',
         'content',
+        'instructions',
         'stock',
         'price',
         'price_sale',

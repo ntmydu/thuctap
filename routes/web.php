@@ -28,6 +28,8 @@ Route::post('/admin/login', [LoginAdController::class, 'login'])->name('admin.lo
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         route::get('dashboard',  [MainController::class, 'index'])->name('admin');
+        route::get('statistic',  [MainController::class, 'dashboard']);
+        Route::get('/statistics/week', [MainController::class, 'weekStatistics']);
 
 
 
@@ -139,7 +141,7 @@ Route::post('product/review', [ProductFeController::class, 'addReview'])->name('
 //--Order--
 Route::post('/order/confirm', [OrderController::class, 'showconfirm'])->name('order.confirm');
 Route::get('/order/review', [OrderController::class, 'reviewOrder'])->name('order.review');
-Route::get('/order', [OrderController::class, 'index'])->name('order');
+Route::POST('/order', [OrderController::class, 'index'])->name('order');
 
 Route::post('/applyDiscount', [OrderController::class, 'applydiscount'])->name('discount.apply');
 Route::post('/add/order', [OrderController::class, 'create'])->name('order.add');

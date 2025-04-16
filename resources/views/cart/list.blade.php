@@ -56,7 +56,8 @@
                             </form>
                         </td>
                         <td class="cart_total text-center">
-                            <p class="cart_total_price">{{ number_format($product['price'] * $product['quantity']) }}đ
+                            <p class="cart_total_price">
+                                {{ number_format($product['price'] * $product['quantity'], 0, ".", ",") }}đ
                             </p>
                         </td>
                         <td class="cart_delete text-center">
@@ -88,7 +89,7 @@
                     </tr>
                     <tr>
                         <td colspan="3" class="text-end fw-bold">Tổng Cộng:</td>
-                        <td class="fw-bold text-center">{{ number_format($totalAmount) }}đ</td>
+                        <td class="fw-bold text-center">{{ number_format($totalAmount, 0, ".", ",") }}đ</td>
                         <td>
                             <form action="{{ route('order') }}" method="POST">
                                 @csrf

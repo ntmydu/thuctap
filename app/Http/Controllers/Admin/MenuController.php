@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Menu\CreateFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\Order;
+use App\Models\ReturnOrd;
 use Illuminate\Support\Str;
 use App\Http\Services\Menu\MenuService;
 
@@ -22,13 +24,16 @@ class MenuController extends Controller
 
     public function create()
     {
+
         return view('admin.menu.add', [
             'title' => 'Thêm Danh Mục Mới',
-            'menus' => $this->menuService->getParent()
+            'menus' => $this->menuService->getParent(),
+
         ]);
     }
     public function store(Request $request)
     {
+
         $randomId = Str::random(10);
 
         // Tạo sản phẩm mới
@@ -49,13 +54,16 @@ class MenuController extends Controller
 
     public function index()
     {
+
         return view('admin.menu.list', [
             'title' => 'Danh sách danh mục',
-            'menus' => $this->menuService->getAll()
+            'menus' => $this->menuService->getAll(),
+
         ]);
     }
     public function destroy($id)
     {
+
         $menu = Menu::where('id', $id)->first();
         $menu->delete();
 
@@ -73,11 +81,13 @@ class MenuController extends Controller
     }
     public function show($id)
     {
+
         $menu = Menu::where('id', $id)->first();
         return view('admin.menu.edit', [
             'title' => 'Chỉnh sửa thư mục',
             'menu' => $menu,
-            'menus' => $this->menuService->getParent()
+            'menus' => $this->menuService->getParent(),
+
         ]);
     }
 
@@ -85,6 +95,7 @@ class MenuController extends Controller
 
     public function update(Request $request, $id)
     {
+
         // $this->menuService->update($request, $menu);
         $menu = Menu::where('id', $id)->first();
 
@@ -111,6 +122,7 @@ class MenuController extends Controller
     }
     public function search(Request $request)
     {
+
 
         $keywords = $request->input('searchInput', '');
 

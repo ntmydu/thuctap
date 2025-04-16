@@ -88,7 +88,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="3" class="text-end fw-bold">Tổng Cộng</td>
-                                <td class="fw-bold">{{ number_format($totalAmount, 0, ',', '.') }}đ</td>
+                                <td class="fw-bold">{{ number_format($totalAmount, 0, ".", ",") }}đ</td>
                             </tr>
                         </tfoot>
                     </table>

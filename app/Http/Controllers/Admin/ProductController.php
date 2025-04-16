@@ -8,6 +8,8 @@ use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Upload;
 use Illuminate\Support\Str;
+use App\Models\Order;
+use App\Models\ReturnOrd;
 use Laravel\Prompts\Prompt;
 use Illuminate\Support\Facades\File;
 
@@ -16,17 +18,27 @@ class ProductController extends Controller
 {
     public function index()
     {
+
         $products = Product::orderBy('created_at', 'DESC')->get();
-        return view('admin.product.list', compact('products'));
+        return view('admin.product.list', ['products' => $products,]);
     }
     public function create()
     {
+        $newOrders = Order::where('status', 'unconfirmed')->count();
+        $newOrdReturn = ReturnOrd::where('status', 'unprocess')->count();
+
         $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
         $upload = Upload::get();
-        return view('admin.product.add', compact('menus'));
+        return view('admin.product.add', [
+            'menus' => $menus,
+
+
+        ]);
     }
     public function store(Request $request)
     {
+
+
         // if ($request->has('file_upload')) {
         //     $file = $request->file_upload;
         //     $ext = $request->file_upload->extension();
@@ -138,6 +150,7 @@ class ProductController extends Controller
     }
     public function show($id)
     {
+
         $product = Product::findOrFail($id);
         $upload = Upload::where('product_id', $id)->get();
 
@@ -146,11 +159,14 @@ class ProductController extends Controller
         return view('admin.product.edit', [
             'product' => $product,
             'menus' => $menu,
-            'images' => $upload
+            'images' => $upload,
+
         ]);
     }
     public function destroy($id)
     {
+
+
         $product = Product::find($id);
         $product->delete();
 
@@ -174,9 +190,11 @@ class ProductController extends Controller
     }
     public function showlist()
     {
+
         $products = Product::orderBy('created_at', 'DESC')->where('stock', '<', 20)->get();
         return view('admin.product.soldout', [
-            'products' => $products
+            'products' => $products,
+
         ]);
     }
 }

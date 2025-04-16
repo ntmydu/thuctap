@@ -24,7 +24,8 @@ class OrderAdController extends Controller
         return view('admin.order.list', [
 
             'orders' => $orders,
-            'products' => $products
+            'products' => $products,
+
         ]);
     }
     public function view($id)
@@ -63,6 +64,7 @@ class OrderAdController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $order = Order::findOrFail($id);
         $order->status = $request->input('status');
         $order->save();
@@ -72,9 +74,11 @@ class OrderAdController extends Controller
     }
     public function showreturn()
     {
+
         $returns = ReturnOrd::orderBy('created_at', 'DESC')->paginate(15);
         return view('admin.order.return', [
-            'returns' => $returns
+            'returns' => $returns,
+
         ]);
     }
     public function viewReturn($id)
@@ -87,7 +91,6 @@ class OrderAdController extends Controller
 
         return view('admin.order.returndet', [
             'return' => $return,
-
 
         ]);
     }
