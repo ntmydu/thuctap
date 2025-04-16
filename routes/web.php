@@ -30,7 +30,9 @@ Route::middleware(['auth'])->group(function () {
         route::get('dashboard',  [MainController::class, 'index'])->name('admin');
         route::get('statistic',  [MainController::class, 'dashboard']);
         Route::get('/statistics/week', [MainController::class, 'weekStatistics']);
-
+        Route::get('/statistics/today', [MainController::class, 'todayStatistics']);
+        Route::get('/statistics/month', [MainController::class, 'monthStatistics']);
+        Route::get('/statistics/year', [MainController::class, 'yearStatistics']);
 
 
         // --User--

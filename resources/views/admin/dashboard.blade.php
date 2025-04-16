@@ -12,21 +12,21 @@
 
             <!-- Nút thống kê nhanh -->
             <div class="col-md-12 d-flex  flex-wrap gap-2 mb-3">
-                <form action="" method="GET" class="">
+                <form action="/admin/statistics/today" method="GET" class="">
                     @csrf
-                    <a href="" class="btn btn-outline-primary me-2">Hôm nay</a>
+                    <button type="submit" class="btn btn-outline-primary me-2">Hôm nay</button>
                 </form>
-                <form action="" method="GET" class="">
+                <form action="/admin/statistics/week" method="GET" class="">
                     @csrf
-                    <a href="" class="btn btn-outline-primary me-2">Tuần này</a>
+                    <button type="submit" class="btn btn-outline-primary me-2">Tuần này</button>
                 </form>
-                <form action="" method="GET" class="">
+                <form action="/admin/statistics/month" method="GET" class="">
                     @csrf
-                    <a href="" class="btn btn-outline-primary me-2">Tháng này</a>
+                    <button type="submit" class="btn btn-outline-primary me-2">Tháng này</button>
                 </form>
-                <form action="" method="GET" class="">
+                <form action="/admin/statistics/year" method="GET" class="">
                     @csrf
-                    <a href="" class="btn btn-outline-primary">Năm nay</a>
+                    <button type="submit" class="btn btn-outline-primary">Năm nay</button>
                 </form>
             </div>
             <form action="/admin/statistic" method="GET" class="row g-3">
