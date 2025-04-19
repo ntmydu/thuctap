@@ -43,6 +43,18 @@ class ProductFeController extends Controller
             'images' => $images
         ]);
     }
+    public function showAll()
+    {
+        $menus = Menu::all();
+
+        $products = Product::all();
+        $images = Upload::all();
+        return view('fontend.product.all', [
+            'products' => $products,
+            'menus' => $menus,
+            'images' => $images
+        ]);
+    }
     public function showReview($id)
     {
         $product = Product::find($id);
@@ -80,5 +92,49 @@ class ProductFeController extends Controller
             'duration' => 5000,
         ]);
         return redirect()->back();
+    }
+    public function filterLow()
+    {
+        $menus = Menu::all();
+        $products = Product::where('price', '<', 100000)->get();
+        $images = Upload::all();
+        return view('fontend.product.all', [
+            'products' => $products,
+            'menus' => $menus,
+            'images' => $images
+        ]);
+    }
+    public function filterAverageer()
+    {
+        $menus = Menu::all();
+        $products = Product::where('price', '>=', 100000)->where('price', '<=', 200000)->get();
+        $images = Upload::all();
+        return view('fontend.product.all', [
+            'products' => $products,
+            'menus' => $menus,
+            'images' => $images
+        ]);
+    }
+    public function filterHigh()
+    {
+        $menus = Menu::all();
+        $products = Product::where('price', '>', 200000)->where('price', '<=', 400000)->get();
+        $images = Upload::all();
+        return view('fontend.product.all', [
+            'products' => $products,
+            'menus' => $menus,
+            'images' => $images
+        ]);
+    }
+    public function filterHigher()
+    {
+        $menus = Menu::all();
+        $products = Product::where('price', '>', 400000)->where('price', '<=', 600000)->get();
+        $images = Upload::all();
+        return view('fontend.product.all', [
+            'products' => $products,
+            'menus' => $menus,
+            'images' => $images
+        ]);
     }
 }

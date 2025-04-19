@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UploadController;
@@ -92,6 +93,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/logout', [LoginAdController::class, 'logout'])->name('admin.logout');
 
+        Route::get('blog/add', [BlogController::class, 'create']);
+        Route::post('blog/add', [BlogController::class, 'store'])->name('blog.store');
+        Route::get('blog/list', [BlogController::class, 'index'])->name('blog.list');
+        Route::get('blog/edit/{id}', [BlogController::class, 'show'])->name('blog.edit');
+        Route::post('blog/edit/{id}', [BlogController::class, 'update'])->name('blog.update');
+        Route::DELETE('blog/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+        Route::get('/blog/search', [BlogController::class, 'search'])->name('blog.search');
         Route::get('add', [TestController::class, 'create']);
         Route::post('add', [TestController::class, 'store'])->name('add');
     });
@@ -136,9 +144,15 @@ Route::post('new/pass', [HomeController::class, 'updatepass'])->name('new.passwo
 // --Product--
 Route::get('/product/detail/{order}', [ProductFeController::class, 'index'])->name('product.detail');
 Route::get('/product/list/{id}', [ProductFeController::class, 'show'])->name('product.list');
-
+Route::get('/product/list', [ProductFeController::class, 'showAll'])->name('product.all');
+// đánh giá sản phẩm
 Route::get('/review/{id}', [ProductFeController::class, 'showReview'])->name('view.review');
 Route::post('product/review', [ProductFeController::class, 'addReview'])->name('product.review');
+//--
+Route::get('/product/filterLow', [ProductFeController::class, 'filterLow'])->name('product.filterLow');
+Route::get('/product/filterAverage', [ProductFeController::class, 'filterAverageer'])->name('product.filterAverage');
+Route::get('/product/filterHigh', [ProductFeController::class, 'filterHigh'])->name('product.filterHigh');
+Route::get('/product/filterHigher', [ProductFeController::class, 'filterHigher'])->name('product.filterHigher');
 
 //--Order--
 Route::post('/order/confirm', [OrderController::class, 'showconfirm'])->name('order.confirm');

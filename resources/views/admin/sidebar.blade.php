@@ -102,6 +102,24 @@
                 </ul>
 
             </li>
+            <li class="sidebar-item active">
+                <a class="sidebar-link has-dropdown collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#blog"
+                    aria-expanded="false" aria-controls="blog">
+                    <i class=" align-middle" data-feather="blog"></i>
+                    <span class="align-middle">
+                        Bài viết
+                    </span>
+                </a>
+                <ul id="blog" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="/admin/blog/list" class="sidebar-link">Danh sách bài viết</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/admin/blog/add" class="sidebar-link">Thêm bài viết</a>
+                    </li>
+
+                </ul>
+            </li>
         </ul>
 
         <ul class="sidebar-nav">

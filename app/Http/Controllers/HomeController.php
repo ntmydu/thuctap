@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Upload;
 use App\Models\User;
+use App\Models\Blog;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,14 @@ class HomeController extends Controller
         // $slides = Slide::orderBy('id', 'DESC')->where('status', '1')->take(4)->get();
         $slides =  Slide::orderBy('id', 'DESC')->get();
         $product = Product::all()->take(4);
+        $blogs = Blog::all()->take(3);
         $images = Upload::all();
         return view('fontend.home', [
             'slides' => $slides,
             'menus' => $menus,
             'products' => $product,
-            'images' => $images
+            'images' => $images,
+            'blogs' => $blogs
         ]);
     }
     public function search(Request $request)

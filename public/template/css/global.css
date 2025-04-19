@@ -387,3 +387,38 @@ a {
 a {
     color: #000 !important
 }
+
+.cert-box__title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: Vollkorn;
+}
+
+.cert-box__subtitle {
+    margin-top: 1.4375rem;
+    font-size: 1.5rem;
+    line-height: 1.375rem;
+}
+
+.sefont-semibold {
+    font-family: Barlow;
+}
+
+.text-typo-body {
+    color: rgba(65, 69, 72, 1);
+    font-size: 1.5rem;
+}
+
+.cert-box__description {
+    margin-top: 1.4375rem;
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    min-height: 6rem;
+
+}
+
+.text-gray-600 {
+    color: rgba(118, 115, 111, 1);
+    font-family: Barlow;
+}
