@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-
+use App\Models\Image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -22,24 +23,30 @@ class BlogController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'image.*' => 'image | mimes:png,jpg,jpeg,webp'
+        ]);
+        $blogs = Blog::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'author' => $request->author,
 
-        $file = $request->image;
+        ]);
 
-
-        if ($file) {
-            $duoifile = $file->getClientOriginalExtension();
+        $image = [];
+        if ($files = $request->file('image')) {
+            $duoifile = $files->getClientOriginalExtension();
             $tenfile = 'blog' . '-' . rand(0, 99) . '.' . $duoifile;
             $path = "sliders/";
-            $blogs = Blog::create([
-                'title' => $request->title,
-                'content' => $request->content,
-                'author' => $request->author,
-                'image' => $tenfile,
-            ]);
-            $file->move($path, $tenfile);
-            $blogs->image = $tenfile;
-        }
 
+            $files->move($path, $tenfile);
+            $tmp = [
+                'image' => $path . $tenfile,
+                'blog_id' => $blogs->id,
+            ];
+            $image[] = $tmp;
+        }
+        Image::insert($image);
         $blogs->save();
         toastify()->success('Thêm bài viết thành công', [
             'duration' => 5000,
@@ -58,11 +65,32 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         $blog = Blog::find($id);
+        $image = [];
+        if ($files = $request->file('image')) {
+            $img = Image::where('blog_id', $id)->get();
+            foreach ($img as $upl) {
+                if (File::exists($img->id)) {
+                    File::delete(($img->id));
+                }
+                $img->delete();
+            }
+            $duoifile = $files->getClientOriginalExtension();
+            $tenfile = 'blog' . '-' . rand(0, 99) . '.' . $duoifile;
+            $path = "sliders/";
+
+            $files->move($path, $tenfile);
+            $tmp = [
+                'image' => $path . $tenfile,
+                'blog_id' => $blog->id,
+            ];
+            $image[] = $tmp;
+        }
+        Image::insert($image);
         $blog->update([
             'title' => $request->title,
             'content' => $request->content,
             'author' => $request->author,
-            'image' => $request->image,
+
         ]);
         toastify()->success('Cập nhật bài viết thành công', [
             'duration' => 5000,

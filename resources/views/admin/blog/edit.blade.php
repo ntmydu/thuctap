@@ -90,18 +90,18 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
 <script>
-$('#description').summernote({
-    placeholder: 'Nhập mô tả chi tiết của sản phẩm',
-    tabsize: 2,
-    height: 100
-});
+    $('#description').summernote({
+        placeholder: 'Nhập mô tả chi tiết của sản phẩm',
+        tabsize: 2,
+        height: 100
+    });
 </script>
 
 <script>
-$('#content').summernote({
-    placeholder: 'Nhập nội dung bài viết',
-    tabsize: 2,
-    height: 100
-});
+    $('#content').summernote({
+        placeholder: 'Nhập nội dung bài viết',
+        tabsize: 2,
+        height: 100
+    });
 </script>
 @endsection

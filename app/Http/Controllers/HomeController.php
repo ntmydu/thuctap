@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Upload;
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -22,13 +23,15 @@ class HomeController extends Controller
         $slides =  Slide::orderBy('id', 'DESC')->get();
         $product = Product::all()->take(4);
         $blogs = Blog::all()->take(3);
+        $imageBlog = Image::all();
         $images = Upload::all();
         return view('fontend.home', [
             'slides' => $slides,
             'menus' => $menus,
             'products' => $product,
             'images' => $images,
-            'blogs' => $blogs
+            'blogs' => $blogs,
+            'imageBlog' => $imageBlog
         ]);
     }
     public function search(Request $request)
@@ -139,6 +142,17 @@ class HomeController extends Controller
 
         return view('fontend.password.newpass', [
             'token' => $request->token
+        ]);
+    }
+    public function showBlog($id)
+    {
+        $blog = Blog::find($id);
+        $menus = Menu::all();
+        $images = Upload::all();
+        return view('fontend.blog.view', [
+            'blog' => $blog,
+            'menus' => $menus,
+            'images' => $images
         ]);
     }
 

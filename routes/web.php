@@ -121,6 +121,7 @@ Route::get('/logout', [UesrController::class, 'logout'])->name('logout');
 Route::get('/user/profile', [UesrController::class, 'showInfo']);
 Route::get('/user/changepass', [UesrController::class, 'showChangePass'])->name('user.changepass');
 Route::post('/user/changepass', [UesrController::class, 'changePass'])->name('pass.change');
+
 // --Cart--
 Route::post('/add/cart', [CartController::class, 'create'])->name('cart.add');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
@@ -140,6 +141,7 @@ Route::get('view/recover', [HomeController::class, 'showview'])->name('view.reco
 Route::post('recover/password', [HomeController::class, 'recover'])->name('recover.password');
 Route::get('newpass', [HomeController::class, 'newpass'])->name('new.pass');
 Route::post('new/pass', [HomeController::class, 'updatepass'])->name('new.password');
+Route::get('/blog/{id}', [HomeController::class, 'showBlog'])->name('blog.detail');
 
 // --Product--
 Route::get('/product/detail/{order}', [ProductFeController::class, 'index'])->name('product.detail');

@@ -302,14 +302,19 @@
             @foreach($blogs as $blog)
 
             <div style="background-color: rgba(254, 251, 244); width: 100%; " class=" col col-md-4 mb-4">
-                <a href="">
+                <a href="{{route('blog.detail', $blog->id)}}">
                     <div style="height:300px;" class="card h-100 shadow-sm">
                         <!-- Hình ảnh bài viết -->
                         <div style="width: 350px;">
-                            <img src="{{ asset('sliders/' . $blog->image) }}" class="card-img-top"
-                                alt="{{ $blog->title }}" style="max-height: 200px; object-fit: cover;">
+
+                            @foreach($imageBlog as $img)
+                            @if($img->blog_id === $blog->id)
+                            <img src="{{ asset($img->image) }}" style="max-height: 200px; object-fit: cover;"
+                                loading="lazy" class="img-cover" alt="{{ $blog->title }}">
+                            @endif
+                            @endforeach
                         </div>
-                        <div class="card-body">
+                        <div style="background-color: rgba(254, 251, 244); width: 100%; " class="card-body">
                             <!-- Tên bài viết -->
                             <h5 class="card-title">{{ $blog->title }}</h5>
 
