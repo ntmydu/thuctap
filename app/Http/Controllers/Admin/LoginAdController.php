@@ -9,6 +9,8 @@ use App\Models\Slide;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Upload;
+use App\Models\Blog;
+use App\Models\Image;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -73,15 +75,19 @@ class LoginAdController extends Controller
         $slides =  Slide::orderBy('id', 'DESC')->get();
         $product = Product::all()->take(4);
         $images = Upload::all();
-
+        $blogs = Blog::all()->take(3);
+        $imageBlog = Image::all();
         Auth::logout();
+
         return view(
             'fontend.home',
             [
                 'slides' => $slides,
                 'menus' => $menus,
                 'products' => $product,
-                'images' => $images
+                'images' => $images,
+                'blogs' => $blogs,
+                'imageBlog' => $imageBlog
             ]
         );
     }

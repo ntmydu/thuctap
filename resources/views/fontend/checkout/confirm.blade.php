@@ -26,7 +26,7 @@
             <div class="col-md-6">
                 <h2 class="mb-4">Thông tin liên hệ</h2>
                 <div class="form-group mb-3">
-                    <label for="phone" class="form-label">Số điện thoại:</label>
+                    <label for="tel" class="form-label">Số điện thoại:</label>
                     <input type="text" readonly class="form-control" name="phone" value="{{session('order.phone')}}">
                 </div>
                 <div class="form-group mb-3">
@@ -52,9 +52,10 @@
 
         <!-- Nút hành động -->
         <div class="d-flex justify-content-between mt-4">
-            <a href="{{route('order')}}" class="btn btn-secondary">Quay lại</a>
+
             <button type="submit" class="btn btn-primary">Thanh Toán</button>
         </div>
     </form>
+    <a href="{{route('order')}}" class="btn btn-secondary">Quay lại</a>
 </div>
 @endsection

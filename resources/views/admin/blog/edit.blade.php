@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="">Ảnh đại diện</label>
-                    <input type="file" name="images" class="form-control" id="image_name" multiple>
+                    <input type="file" name="image" class="form-control" id="image_name" multiple>
                     <img src="{{ asset('sliders/' . $blog->image) }}" height="40px">
                     @error('image')
                     <small class="help-block">{{$message}}</small>

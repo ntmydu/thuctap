@@ -53,6 +53,10 @@ class OrderController extends Controller
         $menus = Menu::all();
         $order = session()->get('order', []);
         $randomId = Str::random(10);
+
+        $request->validate([
+            'phone' => 'required|numeric'
+        ]);
         $orderData = [
             'id' => $randomId,
             'name' => $request->input('name'),
@@ -209,6 +213,7 @@ class OrderController extends Controller
                     ]);
 
                     $product->stock -= $cart['quantity'];
+                    $product->sold += $cart['quantity'];
                     $product->save();
                 }
             } else {
@@ -317,6 +322,14 @@ class OrderController extends Controller
         if ($order->status !== 'unconfirmed') {
             return redirect()->back()->with('error', 'Không thể hủy đơn này.');
         }
+        foreach ($order->productOrd as $productOrd) {
+            $product = Product::find($productOrd->product_id);
+            if ($product) {
+                $product->stock += $productOrd->quantity;
+                $product->sold -= $productOrd->quantity;
+                $product->save();
+            }
+        }
         $order->status = 'cancelled';
         $order->save();
         return redirect()->back();
@@ -328,6 +341,17 @@ class OrderController extends Controller
         return view('fontend.order.return', [
             'menus' => $menus,
             'order' => $order
+        ]);
+    }
+    public function detail($id)
+    {
+        $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
+        $order = Order::find($id);
+        $productOrd = ProductsOrder::where('order_id', $id)->get();
+        return view('fontend.order.detail', [
+            'menus' => $menus,
+            'order' => $order,
+            'productOrd' => $productOrd
         ]);
     }
     public function return(Request $request)

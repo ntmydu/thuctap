@@ -27,7 +27,8 @@
             <th>Giá gốc</th>
             <th>Giá giảm</th>
             <th>Active</th>
-            <th>Update</th>
+            <th>Kho</th>
+            <th>Đã bán</th>
             <th style="width: 100px">&nbsp;</th>
         </tr>
     </thead>
@@ -46,7 +47,8 @@
                 <span class="badge bg-dark">No</span>
                 @endif
             </td>
-            <td>{{ $product->updated_at }}</td>
+            <td>{{ $product->stock}}</td>
+            <td>{{ $product->sold}}</td>
             <td>
                 <a class="btn btn-success btn-sm" href="{{ route('product.edit', $product->id) }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

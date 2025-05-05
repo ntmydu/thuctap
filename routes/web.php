@@ -142,6 +142,8 @@ Route::post('recover/password', [HomeController::class, 'recover'])->name('recov
 Route::get('newpass', [HomeController::class, 'newpass'])->name('new.pass');
 Route::post('new/pass', [HomeController::class, 'updatepass'])->name('new.password');
 Route::get('/blog/{id}', [HomeController::class, 'showBlog'])->name('blog.detail');
+Route::get('/blog', [HomeController::class, 'showAllBlog'])->name('blog.all');
+Route::get('contact', [HomeController::class, 'showContact'])->name('contact');
 
 // --Product--
 Route::get('/product/detail/{order}', [ProductFeController::class, 'index'])->name('product.detail');
@@ -156,11 +158,11 @@ Route::get('/product/filterAverage', [ProductFeController::class, 'filterAverage
 Route::get('/product/filterHigh', [ProductFeController::class, 'filterHigh'])->name('product.filterHigh');
 Route::get('/product/filterHigher', [ProductFeController::class, 'filterHigher'])->name('product.filterHigher');
 
-//--Order--
+//--Order-- 
 Route::post('/order/confirm', [OrderController::class, 'showconfirm'])->name('order.confirm');
 Route::get('/order/review', [OrderController::class, 'reviewOrder'])->name('order.review');
-Route::POST('/order', [OrderController::class, 'index'])->name('order');
-
+Route::get('/order', [OrderController::class, 'index'])->name('order');
+Route::get('order/detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
 Route::post('/applyDiscount', [OrderController::class, 'applydiscount'])->name('discount.apply');
 Route::post('/add/order', [OrderController::class, 'create'])->name('order.add');
 Route::get('order/management', [OrderController::class, 'showlistOd'])->name('order.management');

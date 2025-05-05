@@ -34,6 +34,24 @@ class HomeController extends Controller
             'imageBlog' => $imageBlog
         ]);
     }
+    public function showAllBlog()
+    {
+        $menus = Menu::all();
+        // $slides = Slide::orderBy('id', 'DESC')->where('status', '1')->take(4)->get();
+        $slides =  Slide::orderBy('id', 'DESC')->get();
+        $product = Product::all()->take(4);
+        $blogs = Blog::all();
+        $imageBlog = Image::all();
+        $images = Upload::all();
+        return view('fontend.blog.all', [
+            'slides' => $slides,
+            'menus' => $menus,
+            'products' => $product,
+            'images' => $images,
+            'blogs' => $blogs,
+            'imageBlog' => $imageBlog
+        ]);
+    }
     public function search(Request $request)
     {
 
@@ -151,6 +169,15 @@ class HomeController extends Controller
         $images = Upload::all();
         return view('fontend.blog.view', [
             'blog' => $blog,
+            'menus' => $menus,
+            'images' => $images
+        ]);
+    }
+    public function showContact()
+    {
+        $menus = Menu::all();
+        $images = Upload::all();
+        return view('fontend.contact', [
             'menus' => $menus,
             'images' => $images
         ]);

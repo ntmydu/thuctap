@@ -1,7 +1,7 @@
 @extends('fontend.main')
 @section('fontend-content')
 
-<section class="sec-product-detail bg0 p-t-65 p-b-60">
+<section style="background-color: rgba(254, 251, 244);" class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="small-container single-product">
         <div class="row">
             <div class="col-6">
@@ -73,7 +73,7 @@
 
                 <div>
                     <h4 class="sub-title">Mô tả sản phẩm</h4>
-                    <p class="description">{{$product->description}}</p>
+                    <p class="description">{!!$product->description!!}</p>
                 </div>
 
                 <div class="mt-4 line">
@@ -101,8 +101,8 @@
         </div>
         <div class="row mt-5">
             <div class="col-12">
-                <h2 class="sub-title">Mô tả sản phẩm</h2>
-                <p class="description">{{ $product->description }}</p>
+                <h2 class="sub-title">Cách sử dụng</h2>
+                <p class="description">{{ $product->instructions }}</p>
             </div>
         </div>
         <div style="width: 100%" class="row">
@@ -157,108 +157,108 @@
 
     </div>
     <script>
-        const scrollLeft = () => {
-            const container = document.querySelector('.thumbs-container');
-            container.scrollLeft -= 100; // Cuộn sang trái 100px
-        };
+    const scrollLeft = () => {
+        const container = document.querySelector('.thumbs-container');
+        container.scrollLeft -= 100; // Cuộn sang trái 100px
+    };
 
-        const scrollRight = () => {
-            const container = document.querySelector('.thumbs-container');
-            container.scrollLeft += 100; // Cuộn sang phải 100px
-        };
+    const scrollRight = () => {
+        const container = document.querySelector('.thumbs-container');
+        container.scrollLeft += 100; // Cuộn sang phải 100px
+    };
 
-        const handleChangeImage = (urlImg) => {
-            document.getElementById('product-img').src = urlImg;
+    const handleChangeImage = (urlImg) => {
+        document.getElementById('product-img').src = urlImg;
 
-            const thumbs = document.getElementsByClassName('product-img-thumb');
+        const thumbs = document.getElementsByClassName('product-img-thumb');
 
-            // Lặp qua tất cả thumbnail để thêm hoặc xóa class 'active'
-            for (let i = 0; i < thumbs.length; i++) {
-                if (thumbs[i].src === urlImg) {
-                    thumbs[i].style.border = '2px solid #000'; // Thêm border cho thumbnail đã nhấn
-                } else {
-                    thumbs[i].style.border = 'none'; // Xóa border cho thumbnail không phải là thumbnail đã nhấn
-                }
+        // Lặp qua tất cả thumbnail để thêm hoặc xóa class 'active'
+        for (let i = 0; i < thumbs.length; i++) {
+            if (thumbs[i].src === urlImg) {
+                thumbs[i].style.border = '2px solid #000'; // Thêm border cho thumbnail đã nhấn
+            } else {
+                thumbs[i].style.border = 'none'; // Xóa border cho thumbnail không phải là thumbnail đã nhấn
             }
-        };
+        }
+    };
 
-        window.onload = function() {
-            const thumbs = document.getElementsByClassName('product-img-thumb');
-            if (thumbs.length > 0) {
-                // Lấy nguồn của thumbnail đầu tiên
-                const firstThumb = thumbs[0].src;
-                handleChangeImage(firstThumb); // Đặt ảnh chính là thumbnail đầu tiên
-                thumbs[0].style.border = '2px solid #000'; // Thêm border cho thumbnail đầu tiên
-            }
-        };
+    window.onload = function() {
+        const thumbs = document.getElementsByClassName('product-img-thumb');
+        if (thumbs.length > 0) {
+            // Lấy nguồn của thumbnail đầu tiên
+            const firstThumb = thumbs[0].src;
+            handleChangeImage(firstThumb); // Đặt ảnh chính là thumbnail đầu tiên
+            thumbs[0].style.border = '2px solid #000'; // Thêm border cho thumbnail đầu tiên
+        }
+    };
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleButton = document.getElementById('toggleReviews');
-            const reviews = document.querySelectorAll('#reviewContainer .media');
-            let isExpanded = false;
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.getElementById('toggleReviews');
+        const reviews = document.querySelectorAll('#reviewContainer .media');
+        let isExpanded = false;
 
-            toggleButton.addEventListener('click', function() {
-                if (isExpanded) {
-                    // Thu gọn lại
-                    reviews.forEach((review, index) => {
-                        if (index > 2) {
-                            review.style.display = 'none'; // Ẩn các đánh giá ẩn
-                        }
-                    });
-                    this.textContent = 'Xem thêm'; // Đổi text thành "Xem thêm"
-                } else {
-                    // Mở rộng
-                    reviews.forEach(review => {
-                        review.style.display = 'block'; // Hiện tất cả các đánh giá
-                    });
-                    this.textContent = 'Thu gọn lại'; // Đổi text thành "Thu gọn lại"
-                }
-                isExpanded = !isExpanded; // Chuyển đổi trạng thái
-            });
+        toggleButton.addEventListener('click', function() {
+            if (isExpanded) {
+                // Thu gọn lại
+                reviews.forEach((review, index) => {
+                    if (index > 2) {
+                        review.style.display = 'none'; // Ẩn các đánh giá ẩn
+                    }
+                });
+                this.textContent = 'Xem thêm'; // Đổi text thành "Xem thêm"
+            } else {
+                // Mở rộng
+                reviews.forEach(review => {
+                    review.style.display = 'block'; // Hiện tất cả các đánh giá
+                });
+                this.textContent = 'Thu gọn lại'; // Đổi text thành "Thu gọn lại"
+            }
+            isExpanded = !isExpanded; // Chuyển đổi trạng thái
         });
+    });
     </script>
 
 </section>
 @endsection
 
 <script>
-    function setRating(element) {
-        // Lấy giá trị từ data-index của sao được nhấp
-        const rating = element.getAttribute('data-index');
-        document.getElementById('selected_rating').value = rating; // Cập nhật giá trị rating đã chọn
-        updateStarColors(rating); // Cập nhật màu sắc các sao
-    }
+function setRating(element) {
+    // Lấy giá trị từ data-index của sao được nhấp
+    const rating = element.getAttribute('data-index');
+    document.getElementById('selected_rating').value = rating; // Cập nhật giá trị rating đã chọn
+    updateStarColors(rating); // Cập nhật màu sắc các sao
+}
 
-    function hoverRating(element) {
-        // Lấy giá trị từ data-index khi hover
-        const rating = element.getAttribute('data-index');
-        updateStarColors(rating); // Cập nhật màu sắc các sao theo rating hover
-    }
+function hoverRating(element) {
+    // Lấy giá trị từ data-index khi hover
+    const rating = element.getAttribute('data-index');
+    updateStarColors(rating); // Cập nhật màu sắc các sao theo rating hover
+}
 
-    function resetRating() {
-        // Cập nhật lại màu sắc sao dựa trên rating đã chọn
-        const selectedRating = document.getElementById('selected_rating').value || 0;
-        updateStarColors(selectedRating);
-    }
+function resetRating() {
+    // Cập nhật lại màu sắc sao dựa trên rating đã chọn
+    const selectedRating = document.getElementById('selected_rating').value || 0;
+    updateStarColors(selectedRating);
+}
 
-    function updateStarColors(rating) {
-        const stars = document.querySelectorAll('.star');
-        stars.forEach((star, index) => {
-            star.style.color = index < rating ? '#ffcc00' : '#ccc'; // Màu vàng cho sao đã chọn
-        });
-    }
+function updateStarColors(rating) {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        star.style.color = index < rating ? '#ffcc00' : '#ccc'; // Màu vàng cho sao đã chọn
+    });
+}
 </script>
 <script>
-    document.getElementById('loadMore').addEventListener('click', function() {
-        const reviews = document.querySelectorAll('#reviewContainer .media');
-        reviews.forEach((review, index) => {
-            if (index >= 3) {
-                review.style.display = 'block'; // Hiện các đánh giá ẩn
-            }
-        });
-        this.style.display = 'none'; // Ẩn nút "Xem thêm" sau khi nhấn
+document.getElementById('loadMore').addEventListener('click', function() {
+    const reviews = document.querySelectorAll('#reviewContainer .media');
+    reviews.forEach((review, index) => {
+        if (index >= 3) {
+            review.style.display = 'block'; // Hiện các đánh giá ẩn
+        }
     });
+    this.style.display = 'none'; // Ẩn nút "Xem thêm" sau khi nhấn
+});
 </script>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </script>
@@ -308,28 +308,28 @@ $(document).ready(function() {
 });
 </script> -->
 <script>
-    const handleChangeImage = (urlImg) => {
-        document.getElementById('product-img').src = urlImg;
+const handleChangeImage = (urlImg) => {
+    document.getElementById('product-img').src = urlImg;
 
-        const thumbs = document.getElementsByClassName('product-img-thumb');
+    const thumbs = document.getElementsByClassName('product-img-thumb');
 
-        // Lặp qua tất cả thumbnail để thêm hoặc xóa class 'active'
-        for (let i = 0; i < thumbs.length; i++) {
-            if (thumbs[i].src === urlImg) {
-                thumbs[i].style.border = '1px solid'; // Thêm border cho thumbnail đã nhấn
-            } else {
-                thumbs[i].style.border = 'none'; // Xóa border cho thumbnail không phải là thumbnail đã nhấn
-            }
+    // Lặp qua tất cả thumbnail để thêm hoặc xóa class 'active'
+    for (let i = 0; i < thumbs.length; i++) {
+        if (thumbs[i].src === urlImg) {
+            thumbs[i].style.border = '1px solid'; // Thêm border cho thumbnail đã nhấn
+        } else {
+            thumbs[i].style.border = 'none'; // Xóa border cho thumbnail không phải là thumbnail đã nhấn
         }
     }
+}
 
-    window.onload = function() {
-        const thumbs = document.getElementsByClassName('product-img-thumb');
-        if (thumbs.length > 0) {
-            // Lấy nguồn của thumbnail đầu tiên
-            const firstThumb = thumbs[0].src;
-            handleChangeImage(firstThumb); // Đặt ảnh chính là thumbnail đầu tiên
-            thumbs[0].style.border = '1px solid'; // Thêm border cho thumbnail đầu tiên
-        }
+window.onload = function() {
+    const thumbs = document.getElementsByClassName('product-img-thumb');
+    if (thumbs.length > 0) {
+        // Lấy nguồn của thumbnail đầu tiên
+        const firstThumb = thumbs[0].src;
+        handleChangeImage(firstThumb); // Đặt ảnh chính là thumbnail đầu tiên
+        thumbs[0].style.border = '1px solid'; // Thêm border cho thumbnail đầu tiên
     }
+}
 </script>

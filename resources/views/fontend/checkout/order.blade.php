@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="phone" class="form-label">Số điện thoại:</label>
-                            <input type="tel" class="form-control" id="phone" name="phone"
+                            <input type="number" class="form-control" id="phone" name="phone"
                                 placeholder="Nhập số điện thoại" required>
                         </div>
                         <div class="form-group mb-3">
@@ -44,7 +44,7 @@
             </div>
 
             <!-- Xem lại giỏ hàng -->
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <h2 class="mb-4">Xem lại giỏ hàng của bạn</h2>
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -93,7 +93,7 @@
                         </tfoot>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </div>
     </form>
 </div>

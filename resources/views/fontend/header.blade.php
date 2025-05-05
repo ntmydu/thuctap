@@ -50,10 +50,10 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#">Bài viết</a>
+                            <a href="{{route('blog.all')}}">Bài viết</a>
                         </li>
                         <li>
-                            <a href="#">Liên Hệ</a>
+                            <a href="{{route('contact')}}">Liên Hệ</a>
                         </li>
                     </ul>
                 </div>

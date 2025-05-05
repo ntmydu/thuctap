@@ -24,6 +24,7 @@ class Product extends Model
         'content',
         'instructions',
         'stock',
+        'sold',
         'price',
         'price_sale',
         'status'

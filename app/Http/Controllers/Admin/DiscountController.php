@@ -54,7 +54,7 @@ class DiscountController extends Controller
         $discounts->start = $request->input('start');
         $discounts->end = $request->input('end');
         $discounts->save();
-        return redirect('/admin/discount/list', [])->with('success', 'Cập nhật thành công');
+        return redirect('/admin/discount/list')->with('success', 'Cập nhật thành công');
     }
     public function destroy($id)
     {

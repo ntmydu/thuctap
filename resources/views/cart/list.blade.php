@@ -91,10 +91,10 @@
                         <td colspan="3" class="text-end fw-bold">Tổng Cộng:</td>
                         <td class="fw-bold text-center">{{ number_format($totalAmount, 0, ".", ",") }}đ</td>
                         <td>
-                            <form action="{{ route('order') }}" method="POST">
+                            <a href="{{ route('order') }}">
                                 @csrf
                                 <button class="btn btn-success w-100">Thanh Toán</button>
-                            </form>
+                            </a>
                         </td>
                     </tr>
                 </tfoot>

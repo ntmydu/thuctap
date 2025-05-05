@@ -15,7 +15,7 @@ class ProductFeController extends Controller
     public function index($id)
     {
         $product = Product::where('id', $id)->first();
-        $menus = Menu::orderBy('name', 'ASC')->select('id', 'name')->get();
+        $menus = Menu::all();
 
         $images = Upload::where('product_id', $product->id)->get();
         $ratings = Ratting::where('product_id', $product->id)->get();
@@ -25,6 +25,7 @@ class ProductFeController extends Controller
         return view('fontend.product.detail', [
             'product' => $product,
             'menus' => $menus,
+
             'images' => $images,
             'rating' => $rating,
             'ratings' => $ratings

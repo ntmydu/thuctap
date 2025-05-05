@@ -449,3 +449,44 @@ a {
     font-size: 1.5rem !important;
     font-weight: 400;
 }
+
+footer .col-12 {
+    background-color: #1f1c17;
+    /* Màu nền tối */
+    color: #d3b673;
+    /* Màu chữ vàng nhạt */
+    padding: 20px 0;
+    /* Khoảng cách trên và dưới */
+    font-size: 14px;
+    /* Kích thước chữ */
+    line-height: 1.8;
+    /* Khoảng cách giữa các dòng */
+}
+
+footer .col-12 a {
+    color: #d3b673;
+    /* Màu chữ vàng nhạt */
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+}
+
+footer .col-12 a:hover {
+    text-decoration: underline;
+    /* Gạch chân khi hover */
+}
+
+footer .col-12 .footer-logo {
+    display: block;
+    margin: 10px auto;
+    /* Căn giữa logo */
+    max-width: 150px;
+    /* Giới hạn chiều rộng logo */
+}
+
+footer .col-12 .copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #d3b673;
+    /* Màu chữ vàng nhạt */
+}

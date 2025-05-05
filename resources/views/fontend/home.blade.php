@@ -22,7 +22,8 @@
                         class="heading">
                         Chăm da, chống nắng - rạng rỡ ngày hè.</div>
                     <div class="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, repellat!</div>
-                    <button class="button">Mua ngay</button>
+                    <a href="{{route('product.all')}}" class="btn "
+                        style="background-color: #daac55 ; margin-top: 10px;">Mua ngay</a>
                 </div>
 
                 <div class="image">
@@ -130,7 +131,7 @@
     <div style="background-color: rgba(254, 251, 244); width: 100%; ">
         <section class="section banner" aria-label="banner" data-section="">
             <div class="container">
-                <a href="#">
+                <a href="http://127.0.0.1:8000/blog/19">
                     <img src="{{asset('sliders/banner1.jpg')}}" alt="Ảnh" class="image-banner">
                 </a>
             </div>
@@ -307,12 +308,10 @@
                         <!-- Hình ảnh bài viết -->
                         <div style="width: 350px;">
 
-                            @foreach($imageBlog as $img)
-                            @if($img->blog_id === $blog->id)
-                            <img src="{{ asset($img->image) }}" style="max-height: 200px; object-fit: cover;"
-                                loading="lazy" class="img-cover" alt="{{ $blog->title }}">
-                            @endif
-                            @endforeach
+                            <img src="{{ asset('sliders/' . $blog->image) }}"
+                                style="max-height: 200px; object-fit: cover;" loading="lazy" class="img-cover"
+                                alt="{{ $blog->title }}">
+
                         </div>
                         <div style="background-color: rgba(254, 251, 244); width: 100%; " class="card-body">
                             <!-- Tên bài viết -->
