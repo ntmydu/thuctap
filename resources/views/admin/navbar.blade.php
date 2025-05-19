@@ -83,7 +83,8 @@
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i> Cài
                         đặt</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="log-out"></i> Đăng
+                    <a class="dropdown-item" href="{{route('admin.logout')}}"><i class="align-middle me-1"
+                            data-feather="log-out"></i> Đăng
                         xuất</a>
                 </div>
             </li>

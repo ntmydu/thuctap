@@ -55,9 +55,10 @@
 
             <div class="col-6">
                 <form action="{{route('pass.change')}}" method="POST">
+                    @csrf
                     <div style="border: 2px  solid #000; background-color: #dfcec1 " class="form-container">
                         <h1 style="color: #000;" class="heading">Đặt mật khẩu mới</h1>
-                        @csrf
+
                         <div class="mb-3">
                             <label style="color: #000;" for="" name="old_password" class="form-label">Nhập mật khẩu
                                 cũ</label>

@@ -175,7 +175,7 @@ class OrderController extends Controller
             $totalQuantity = 0;
             // Thêm sản phẩm trong giỏ vào table Carts 
             foreach ($carts as $cart) {
-                $totalPrice += $cart['price'];
+                $totalPrice += $cart['price'] * $cart['quantity'];
                 $totalQuantity += $cart['quantity'];
             }
 
@@ -187,7 +187,7 @@ class OrderController extends Controller
                 'name_customer' => $order['name'],
                 'email' => $order['email'],
                 'phone' => $order['phone'],
-                'address' => 'An Giang',
+                'address' => $order['address'],
                 'payment_id' => $request->payment_method,
                 'quantity' => $totalQuantity,
                 'price' => $totalPrice,

@@ -75,7 +75,6 @@ class CartController extends Controller
             $totalPrice += $item['price'];
         }
 
-
         toastify()->success('Thêm vào giỏ hàng thành công!', [
             'duration' => 5000,
             'gravity' => 'top',

@@ -190,7 +190,6 @@ class UesrController extends Controller
         return view('admin.user.search', [
             'user' => $user,
             'search_user' => $search_user,
-
         ]);
     }
     public function showInfo()
@@ -207,18 +206,21 @@ class UesrController extends Controller
     public function changePass(Request $request)
     {
         $user = User::find(Auth::id());
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed|min:6',
-            'confirm_password' => 'required|same:new_password',
-        ]);
+
         if (Hash::check($request->old_password, $user->password)) {
-            $user->password = Hash::make($request->new_password);
-            $user->save();
-            return redirect()->back();
-            toastify()->success('Đổi mật khẩu thành công', [
-                'duration' => 5000,
-            ]);
+            if ($request->new_password != $request->confirm_password) {
+                toastify()->error('Mật khẩu không khớp', [
+                    'duration' => 5000,
+                ]);
+                return redirect()->back();
+            } else {
+                $user->password = bcrypt($request->new_password);
+                $user->save();
+                toastify()->success('Đổi mật khẩu thành công', [
+                    'duration' => 5000,
+                ]);
+                return redirect('/');
+            }
         } else {
             return redirect()->back();
             toastify()->error('Mật khẩu cũ không chính xác', [
